@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Livro do Chefe de Socorro - 13º BBM</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4 font-sans pb-24">
+
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold text-center mb-6 text-red-700">LIVRO DO CHEFE DE SOCORRO</h1>
+        
+        <form id="livroForm" class="space-y-6">
+            
+            <section class="border-b pb-4">
+                <h2 class="text-xl font-semibold mb-3">I - Serviço Diário</h2>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Data da Assunção do Serviço</label>
+                    <input type="date" id="dataServico" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" required>
+                </div>
+            </section>
+
+            <section class="border-b pb-4">
+                <h2 class="text-xl font-semibold mb-3">II - Guarnição de Serviço</h2>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
+                        <label class="block text-sm font-medium">Chefe de Socorro *</label>
+                        <input type="text" id="chefeSocorro" class="mt-1 block w-full rounded-md border p-2" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Aux. do Chefe de Socorro</label>
+                        <input type="text" id="auxChefe" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: XXX">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Cmt da Guarnição *</label>
+                        <input type="text" id="cmtGuarnicao" class="mt-1 block w-full rounded-md border p-2" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Chefe da 1ª Linha</label>
+                        <input type="text" id="chefeLinha" class="mt-1 block w-full rounded-md border p-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Aux. da 1ª Linha</label>
+                        <input type="text" id="auxLinha" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: XXX">
+                    </div>
+                </div>
+                
+                <h3 class="text-lg font-semibold mt-4 mb-2">Motoristas</h3>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
+                        <label class="block text-sm font-medium">Motorista do ABT-34 *</label>
+                        <input type="text" id="motABT" class="mt-1 block w-full rounded-md border p-2" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Motorista do AR-75</label>
+                        <input type="text" id="motAR" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: XXX">
+                    </div>
+                </div>
+            </section>
+
+            <section class="border-b pb-4">
+                <h2 class="text-xl font-semibold mb-3">Serviço Interno & Permutas</h2>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium">Permanência *</label>
+                    <input type="text" id="permanencia" class="mt-1 block w-full rounded-md border p-2" required>
+                </div>
+                
+                <div id="permutasContainer" class="space-y-2">
+                    <h3 class="text-md font-semibold">Permutas</h3>
+                    </div>
+                <button type="button" onclick="adicionarPermuta()" class="mt-2 text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded">+ Adicionar Permuta</button>
+            </section>
+
+            <section class="border-b pb-4">
+                <h2 class="text-xl font-semibold mb-3">Armamento e Viaturas</h2>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium">Situação Pistola .40 (Permanência)</label>
+                        <select id="sitPistola" class="mt-1 block w-full rounded-md border p-2">
+                            <option value="Operante">Operante</option>
+                            <option value="Inoperante">Inoperante</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Qtd Munições</label>
+                        <input type="text" id="qtdMunicao" class="mt-1 block w-full rounded-md border p-2" value="13 (treze)">
+                    </div>
+                </div>
+
+                <h3 class="text-md font-semibold mt-4">ABT-34</h3>
+                <div class="grid grid-cols-2 gap-2 mb-2">
+                    <select id="sitABT" class="border p-2 rounded"><option>Operante</option><option>Inoperante</option></select>
+                    <input type="text" id="obsABT" placeholder="Observações..." class="border p-2 rounded w-full">
+                    <select id="combIniABT" class="border p-2 rounded"><option value="">Comb. Inicial</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                    <select id="combFinABT" class="border p-2 rounded"><option value="">Comb. Final</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                    <input type="number" id="kmIniABT" placeholder="KM Inicial" class="border p-2 rounded w-full">
+                    <input type="number" id="kmFinABT" placeholder="KM Final" class="border p-2 rounded w-full">
+                    <input type="number" id="abastABT" placeholder="Abastecimento (L)" class="border p-2 rounded w-full col-span-2">
+                </div>
+
+                <h3 class="text-md font-semibold mt-4">AR-75</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <select id="sitAR" class="border p-2 rounded"><option>Operante</option><option>Inoperante</option></select>
+                    <input type="text" id="obsAR" placeholder="Observações..." class="border p-2 rounded w-full">
+                    <select id="combIniAR" class="border p-2 rounded"><option value="">Comb. Inicial</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                    <select id="combFinAR" class="border p-2 rounded"><option value="">Comb. Final</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                    <input type="number" id="kmIniAR" placeholder="KM Inicial" class="border p-2 rounded w-full">
+                    <input type="number" id="kmFinAR" placeholder="KM Final" class="border p-2 rounded w-full">
+                    <input type="number" id="abastAR" placeholder="Abastecimento (L)" class="border p-2 rounded w-full col-span-2">
+                </div>
+            </section>
+
+            <section class="border-b pb-4">
+                <h2 class="text-xl font-semibold mb-3">Quarto de Hora</h2>
+                <div id="quartoHoraContainer" class="space-y-2"></div>
+                <button type="button" onclick="adicionarQuartoHora()" class="mt-2 text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded">+ Adicionar Turno</button>
+            </section>
+
+            <section class="border-b pb-4">
+                <h2 class="text-xl font-semibold mb-3">Ocorrências</h2>
+                <div id="ocorrenciasContainer" class="space-y-4"></div>
+                <button type="button" onclick="adicionarOcorrencia()" class="mt-4 text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded">+ Adicionar Ocorrência</button>
+            </section>
+
+            <section class="border-b pb-4">
+                <h2 class="text-xl font-semibold mb-3">Alterações</h2>
+                <textarea id="alteracoes" rows="4" class="mt-1 block w-full rounded-md border p-2" placeholder="Relate as alterações aqui. Se não houver, digite 'Não Houve'." required></textarea>
+            </section>
+
+            <section class="pb-4">
+                <h2 class="text-xl font-semibold mb-3">Passagem de Serviço</h2>
+                <div class="grid grid-cols-1 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium">Nome e Posto do Substituto *</label>
+                        <input type="text" id="substituto" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 2º TEN QOC MARIANA" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Seu Nome e Posto *</label>
+                        <input type="text" id="nomeAtual" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: WADEILSON ABREU QUINZEIRO - ST QPBM" required>
+                    </div>
+                </div>
+            </section>
+
+        </form>
+    </div>
+
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-4 flex justify-between shadow-lg max-w-3xl mx-auto">
+        <button onclick="limparDados()" class="bg-red-500 text-white px-4 py-2 rounded font-bold">Zerar Tudo</button>
+        <button onclick="gerarECopiarSEI()" class="bg-green-600 text-white px-6 py-2 rounded font-bold">Copiar para o SEI</button>
+    </div>
+
+    <div id="sei-output" style="display: none;"></div>
+
+    <script>
+        // GERENCIAMENTO DE ESTADO (Listas Dinâmicas)
+        let permutas = [];
+        let quartos = [];
+        let ocorrencias = [];
+
+        // FUNÇÕES PARA ADICIONAR CAMPOS DINÂMICOS
+        function adicionarPermuta() {
+            const id = Date.now();
+            permutas.push({ id, funcao: '', sai: '', entra: '' });
+            renderizarPermutas();
+            salvarLocal();
+        }
+
+        function renderizarPermutas() {
+            const container = document.getElementById('permutasContainer');
+            container.innerHTML = '';
+            permutas.forEach((p, index) => {
+                container.innerHTML += `
+                    <div class="flex gap-2 bg-gray-50 p-2 rounded items-end">
+                        <input type="text" placeholder="Função" value="${p.funcao}" oninput="atualizarPermuta(${p.id}, 'funcao', this.value)" class="border p-1 rounded w-1/3 text-sm">
+                        <input type="text" placeholder="Sai" value="${p.sai}" oninput="atualizarPermuta(${p.id}, 'sai', this.value)" class="border p-1 rounded w-1/3 text-sm">
+                        <input type="text" placeholder="Entra" value="${p.entra}" oninput="atualizarPermuta(${p.id}, 'entra', this.value)" class="border p-1 rounded w-1/3 text-sm">
+                        <button type="button" onclick="removerPermuta(${p.id})" class="text-red-500 font-bold px-2">X</button>
+                    </div>
+                `;
+            });
+        }
+
+        function atualizarPermuta(id, campo, valor) {
+            const index = permutas.findIndex(p => p.id === id);
+            permutas[index][campo] = valor;
+            salvarLocal();
+        }
+
+        function removerPermuta(id) {
+            permutas = permutas.filter(p => p.id !== id);
+            renderizarPermutas();
+            salvarLocal();
+        }
+
+        function adicionarQuartoHora() {
+            const id = Date.now();
+            quartos.push({ id, horario: '', militar: '' });
+            renderizarQuartos();
+            salvarLocal();
+        }
+
+        function renderizarQuartos() {
+            const container = document.getElementById('quartoHoraContainer');
+            container.innerHTML = '';
+            quartos.forEach((q, index) => {
+                container.innerHTML += `
+                    <div class="flex gap-2 bg-gray-50 p-2 rounded items-end">
+                        <input type="text" placeholder="Horário (Ex: 00h00 - 01h30)" value="${q.horario}" oninput="atualizarQuarto(${q.id}, 'horario', this.value)" class="border p-1 rounded w-1/2 text-sm">
+                        <input type="text" placeholder="Militar" value="${q.militar}" oninput="atualizarQuarto(${q.id}, 'militar', this.value)" class="border p-1 rounded w-1/2 text-sm">
+                        <button type="button" onclick="removerQuarto(${q.id})" class="text-red-500 font-bold px-2">X</button>
+                    </div>
+                `;
+            });
+        }
+
+        function atualizarQuarto(id, campo, valor) {
+            const index = quartos.findIndex(q => q.id === id);
+            quartos[index][campo] = valor;
+            salvarLocal();
+        }
+
+        function removerQuarto(id) {
+            quartos = quartos.filter(q => q.id !== id);
+            renderizarQuartos();
+            salvarLocal();
+        }
+
+        function adicionarOcorrencia() {
+            const id = Date.now();
+            ocorrencias.push({ id, natureza: '', endereco: '', sinesp: '', descricao: '' });
+            renderizarOcorrencias();
+            salvarLocal();
+        }
+
+        function renderizarOcorrencias() {
+            const container = document.getElementById('ocorrenciasContainer');
+            container.innerHTML = '';
+            ocorrencias.forEach((o, index) => {
+                container.innerHTML += `
+                    <div class="bg-gray-50 p-3 rounded border space-y-2">
+                        <div class="flex justify-between font-bold text-sm text-gray-700">Ocorrência ${index + 1} <button type="button" onclick="removerOcorrencia(${o.id})" class="text-red-500">Excluir</button></div>
+                        <input type="text" placeholder="Natureza" value="${o.natureza}" oninput="atualizarOcorrencia(${o.id}, 'natureza', this.value)" class="border p-1 rounded w-full text-sm">
+                        <input type="text" placeholder="Endereço/Local" value="${o.endereco}" oninput="atualizarOcorrencia(${o.id}, 'endereco', this.value)" class="border p-1 rounded w-full text-sm">
+                        <input type="text" placeholder="Nº SINESP" value="${o.sinesp}" oninput="atualizarOcorrencia(${o.id}, 'sinesp', this.value)" class="border p-1 rounded w-full text-sm">
+                        <textarea placeholder="Descrição da Ocorrência" oninput="atualizarOcorrencia(${o.id}, 'descricao', this.value)" class="border p-1 rounded w-full text-sm" rows="3">${o.descricao}</textarea>
+                    </div>
+                `;
+            });
+        }
+
+        function atualizarOcorrencia(id, campo, valor) {
+            const index = ocorrencias.findIndex(o => o.id === id);
+            ocorrencias[index][campo] = valor;
+            salvarLocal();
+        }
+
+        function removerOcorrencia(id) {
+            ocorrencias = ocorrencias.filter(o => o.id !== id);
+            renderizarOcorrencias();
+            salvarLocal();
+        }
+
+        // SALVAMENTO AUTOMÁTICO (LOCALSTORAGE)
+        const inputsIds = [
+            'dataServico', 'chefeSocorro', 'auxChefe', 'cmtGuarnicao', 'chefeLinha', 'auxLinha', 
+            'motABT', 'motAR', 'permanencia', 'sitPistola', 'qtdMunicao', 
+            'sitABT', 'obsABT', 'combIniABT', 'combFinABT', 'kmIniABT', 'kmFinABT', 'abastABT',
+            'sitAR', 'obsAR', 'combIniAR', 'combFinAR', 'kmIniAR', 'kmFinAR', 'abastAR',
+            'alteracoes', 'substituto', 'nomeAtual'
+        ];
+
+        function salvarLocal() {
+            const dados = {};
+            inputsIds.forEach(id => {
+                dados[id] = document.getElementById(id).value;
+            });
+            dados.permutas = permutas;
+            dados.quartos = quartos;
+            dados.ocorrencias = ocorrencias;
+            localStorage.setItem('livroChefeSocorro', JSON.stringify(dados));
+        }
+
+        function carregarLocal() {
+            const dadosSalvos = localStorage.getItem('livroChefeSocorro');
+            if (dadosSalvos) {
+                const dados = JSON.parse(dadosSalvos);
+                inputsIds.forEach(id => {
+                    if (dados[id]) document.getElementById(id).value = dados[id];
+                });
+                if (dados.permutas) permutas = dados.permutas;
+                if (dados.quartos) quartos = dados.quartos;
+                if (dados.ocorrencias) ocorrencias = dados.ocorrencias;
+                
+                renderizarPermutas();
+                renderizarQuartos();
+                renderizarOcorrencias();
+            }
+        }
+
+        function limparDados() {
+            if(confirm("Tem certeza que deseja apagar todos os dados do plantão?")) {
+                localStorage.removeItem('livroChefeSocorro');
+                location.reload();
+            }
+        }
+
+        // ADICIONA LISTENERS PARA SALVAR AO DIGITAR
+        inputsIds.forEach(id => {
+            document.getElementById(id).addEventListener('input', salvarLocal);
+        });
+
+        // FORMATAÇÃO DE DATAS
+        function obterTextosData(dataStr) {
+            if (!dataStr) return { textoDia: '', textoSemana: '' };
+            const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+            const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+            
+            // Adiciona timezone offset para evitar fuso bugando o dia
+            const dataAtual = new Date(dataStr + 'T12:00:00');
+            const dataSeguinte = new Date(dataAtual);
+            dataSeguinte.setDate(dataSeguinte.getDate() + 1);
+
+            const textoDia = `Do dia ${dataAtual.getDate()} de ${meses[dataAtual.getMonth()]} para o dia ${dataSeguinte.getDate()} de ${meses[dataSeguinte.getMonth()]} de ${dataAtual.getFullYear()}`;
+            const textoSemana = `${diasSemana[dataAtual.getDay()]} para ${diasSemana[dataSeguinte.getDay()]}`;
+
+            return { textoDia, textoSemana };
+        }
+
+        // GERAR HTML DO SEI E COPIAR
+        function gerarECopiarSEI() {
+            const datas = obterTextosData(document.getElementById('dataServico').value);
+            
+            const tableStyle = 'border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 11pt; margin-bottom: 15px;';
+            const thStyle = 'border: 1px solid black; padding: 5px; background-color: #f2f2f2; font-weight: bold; text-align: left;';
+            const tdStyle = 'border: 1px solid black; padding: 5px; text-align: left; vertical-align: top;';
+
+            let html = `
+                <div style="font-family: Arial, sans-serif; font-size: 11pt;">
+                    <p style="text-align: center; font-weight: bold; font-size: 12pt;">CORPO DE BOMBEIROS MILITAR DO ESTADO DO MARANHÃO<br>13º BATALHÃO DE BOMBEIRO MILITAR<br>SUBSEÇÃO DE OPERAÇÕES</p>
+                    
+                    <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">I - SERVIÇO DIÁRIO</p>
+                    <table style="${tableStyle}">
+                        <tr>
+                            <td style="${tdStyle} width: 20%; font-weight: bold;">Data:</td>
+                            <td style="${tdStyle}">${datas.textoDia}</td>
+                        </tr>
+                        <tr>
+                            <td style="${tdStyle} font-weight: bold;">Dia de semana:</td>
+                            <td style="${tdStyle}">${datas.textoSemana}</td>
+                        </tr>
+                    </table>
+
+                    <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">II - GUARNIÇÃO DE SERVIÇO DAS VTR'S</p>
+                    <table style="${tableStyle}">
+                        <tr><td style="${tdStyle} font-weight: bold; width: 30%;">Chefe de Socorro</td><td style="${tdStyle}">${document.getElementById('chefeSocorro').value}</td></tr>
+                        <tr><td style="${tdStyle} font-weight: bold;">Aux. do chefe de Socorro</td><td style="${tdStyle}">${document.getElementById('auxChefe').value || 'XXX'}</td></tr>
+                        <tr><td style="${tdStyle} font-weight: bold;">Cmt da Guarnição</td><td style="${tdStyle}">${document.getElementById('cmtGuarnicao').value}</td></tr>
+                        <tr><td style="${tdStyle} font-weight: bold;">Chefe da 1ª Linha</td><td style="${tdStyle}">${document.getElementById('chefeLinha').value || 'XXX'}</td></tr>
+                        <tr><td style="${tdStyle} font-weight: bold;">Aux. da 1ª Linha</td><td style="${tdStyle}">${document.getElementById('auxLinha').value || 'XXX'}</td></tr>
+                    </table>
+
+                    <table style="${tableStyle}">
+                        <tr><th colspan="2" style="${thStyle}">MOTORISTAS</th></tr>
+                        <tr><td style="${tdStyle} font-weight: bold; width: 30%;">Motorista do ABT-34</td><td style="${tdStyle}">${document.getElementById('motABT').value}</td></tr>
+                        <tr><td style="${tdStyle} font-weight: bold;">Motorista do AR-75</td><td style="${tdStyle}">${document.getElementById('motAR').value || 'XXX'}</td></tr>
+                    </table>
+
+                    <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">V - SERVIÇO INTERNO</p>
+                    <table style="${tableStyle}">
+                        <tr><td style="${tdStyle} font-weight: bold; width: 30%;">Permanência</td><td style="${tdStyle}">${document.getElementById('permanencia').value}</td></tr>
+                    </table>
+
+                    <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">VI - PERMUTA DE SERVIÇO</p>
+                    <table style="${tableStyle}">
+                        <tr>
+                            <th style="${thStyle}">FUNÇÃO</th>
+                            <th style="${thStyle}">SAI (SUBSTITUÍDO)</th>
+                            <th style="${thStyle}">ENTRA (SUBSTITUTO)</th>
+                        </tr>
+                        ${permutas.length > 0 ? permutas.map(p => `<tr><td style="${tdStyle}">${p.funcao}</td><td style="${tdStyle}">${p.sai}</td><td style="${tdStyle}">${p.entra}</td></tr>`).join('') : `<tr><td colspan="3" style="${tdStyle} text-align: center;">Nenhuma permuta</td></tr>`}
+                    </table>
+
+                    <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">VII - ARMAMENTO</p>
+                    <table style="${tableStyle}">
+                        <tr>
+                            <th style="${thStyle}">ESPECIFICAÇÃO</th>
+                            <th style="${thStyle}">SITUAÇÃO</th>
+                            <th style="${thStyle}">QTD. MUNIÇÃO</th>
+                        </tr>
+                        <tr>
+                            <td style="${tdStyle}">Pistola .40 SUB 23395 (Permanência)</td>
+                            <td style="${tdStyle}">${document.getElementById('sitPistola').value}</td>
+                            <td style="${tdStyle}">${document.getElementById('qtdMunicao').value}</td>
+                        </tr>
+                    </table>
+
+                    <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">VIII - VIATURAS</p>
+                    <table style="${tableStyle}">
+                        <tr>
+                            <th style="${thStyle}">VTR</th>
+                            <th style="${thStyle}">SITUAÇÃO</th>
+                            <th style="${thStyle}">LOCAL</th>
+                            <th style="${thStyle}">OBSERVAÇÕES</th>
+                        </tr>
+                        <tr>
+                            <td style="${tdStyle}">ABT-34</td>
+                            <td style="${tdStyle}">${document.getElementById('sitABT').value}</td>
+                            <td style="${tdStyle}">13º BBM/CBMMA</td>
+                            <td style="${tdStyle}">${document.getElementById('obsABT').value || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="${tdStyle}">AR-75</td>
+                            <td style="${tdStyle}">${document.getElementById('sitAR').value}</td>
+                            <td style="${tdStyle}">13º BBM/CBMMA</td>
+                            <td style="${tdStyle}">${document.getElementById('obsAR').value || '-'}</td>
+                        </tr>
+                    </table>
+
+                    <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">IX - ABASTECIMENTO DE COMBUSTÍVEL DAS VTRS</p>
+                    <table style="${tableStyle}">
+                        <tr>
+                            <th style="${thStyle}">VTR</th>
+                            <th style="${thStyle}">COMB. INICIAL</th>
+                            <th style="${thStyle}">COMB. FINAL</th>
+                            <th style="${thStyle}">KM INICIAL</th>
+                            <th style="${thStyle}">KM FINAL</th>
+                            <th style="${thStyle}">ABAST. (Litros)</th>
+                        </tr>
+                        <tr>
+                            <td style="${tdStyle}">ABT-34</td>
+                            <td style="${tdStyle}">${document.getElementById('combIniABT').value || '-'}</td>
+                            <td style="${tdStyle}">${document.getElementById('combFinABT').value || '-'}</td>
+                            <td style="${tdStyle}">${document.getElementById('kmIniABT').value || '-'}</td>
+                            <td style="${tdStyle}">${document.getElementById('kmFinABT').value || '-'}</td>
+                            <td style="${tdStyle}">${document.getElementById('abastABT').value || '-'}</td>
+                        </tr>
+                        <tr>
+                            <td style="${tdStyle}">AR-75</td>
+                            <td style="${tdStyle}">${document.getElementById('combIniAR').value || '-'}</td>
+                            <td style="${tdStyle}">${document.getElementById('combFinAR').value || '-'}</td>
+                            <td style="${tdStyle}">${document.getElementById('kmIniAR').value || '-'}</td>
+                            <td style="${tdStyle}">${document.getElementById('kmFinAR').value || '-'}</td>
+                            <td style="${tdStyle}">${document.getElementById('abastAR').value || '-'}</td>
+                        </tr>
+                    </table>
+
+                    <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">X - QUARTO DE HORA/PERMANÊNCIA</p>
+                    <table style="${tableStyle}">
+                        <tr>
+                            <th style="${thStyle}">HORÁRIO</th>
+                            <th style="${thStyle}">MILITAR</th>
+                        </tr>
+                        ${quartos.length > 0 ? quartos.map(q => `<tr><td style="${tdStyle}">${q.horario}</td><td style="${tdStyle}">${q.militar}</td></tr>`).join('') : `<tr><td colspan="2" style="${tdStyle} text-align: center;">Nenhum turno registrado</td></tr>`}
+                    </table>
+
+                    <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">XI - OCORRÊNCIAS</p>
+                    <table style="${tableStyle}">
+                        <tr>
+                            <th style="${thStyle}">Natureza da Ocorrência</th>
+                            <th style="${thStyle}">Endereço/Local</th>
+                            <th style="${thStyle}">Nº da Ocorrência no SINESP</th>
+                            <th style="${thStyle}">Descrição da ocorrência</th>
+                        </tr>
+                        ${ocorrencias.length > 0 ? ocorrencias.map(o => `<tr><td style="${tdStyle}">${o.natureza}</td><td style="${tdStyle}">${o.endereco}</td><td style="${tdStyle}">${o.sinesp}</td><td style="${tdStyle}">${o.descricao.replace(/\n/g, '<br>')}</td></tr>`).join('') : `<tr><td colspan="4" style="${tdStyle} text-align: center;">Não Houve</td></tr>`}
+                    </table>
+
+                    <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">XII - ALTERAÇÕES</p>
+                    <p style="border: 1px solid black; padding: 10px;">${document.getElementById('alteracoes').value.replace(/\n/g, '<br>') || 'Não Houve'}</p>
+
+                    <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">XIII - PASSAGEM DE SERVIÇO</p>
+                    <p>Fiz ao meu substituto legal, o senhor, <strong>${document.getElementById('substituto').value}</strong>, a quem transmiti todas as ordens em vigor, além do material carga do Chefe de Socorro.</p>
+                    
+                    <p style="text-align: center; margin-top: 30px;">Paço do Lumiar/MA, data da assinatura eletrônica.</p>
+                    <p style="text-align: center; font-weight: bold; margin-top: 20px;">${document.getElementById('nomeAtual').value}</p>
+                    <p style="text-align: center;">Chefe de Socorro do 13º BBM/CBMMA</p>
+
+                </div>
+            `;
+
+            const outputDiv = document.getElementById('sei-output');
+            outputDiv.innerHTML = html;
+
+            try {
+                const blob = new Blob([html], { type: 'text/html' });
+                const clipboardItem = new window.ClipboardItem({ 'text/html': blob });
+                navigator.clipboard.write([clipboardItem]).then(() => {
+                    alert('Documento formatado copiado com sucesso! Agora é só colar no SEI.');
+                });
+            } catch (err) {
+                alert('Erro ao copiar. Tente selecionar o texto manualmente se o seu navegador não suportar a cópia automática.');
+            }
+        }
+
+        // CARREGA DADOS AO ABRIR
+        window.onload = carregarLocal;
+    </script>
+</body>
+</html>
