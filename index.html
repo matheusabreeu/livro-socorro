@@ -6,366 +6,381 @@
     <title>LIVRO DO CHEFE DE SOCORRO DO 13º BBM</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚒</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                background-color: white;
+            }
+            /* Oculta os botões flutuantes na hora do PDF */
+            .no-print { display: none !important; }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 p-4 font-sans pb-48 relative">
+<body class="bg-gray-100 font-sans">
 
-    <datalist id="listaMilitares">
-        <option value="1º TEN QOEBM MARCIO">
-        <option value="1º TEN QOCBM RONES">
-        <option value="1º TEN QOCBM GENILSON">
-        <option value="1º TEN QOABM S MENDES">
-        <option value="2º TEN QOCBM CARMO SOUSA">
-        <option value="2º TEN QOCBM EMÍDIO">
-        <option value="2º TEN QOCBM VIEGAS">
-        <option value="2º TEN QOCBM REINALDO">
-        <option value="2º TEN QOCBM ERICK">
-        <option value="2º TEN QOCBM JORDAN">
-        <option value="2º TEN QOCBM PASSOS">
-        <option value="ASP OF BM MARIANA GUILHON">
-        <option value="ASP OF BM MOREIRA">
-        <option value="ST BM BRUZACA">
-        <option value="ST BM TONE">
-        <option value="ST BM RR QPBM BASTOS">
-        <option value="ST BM WADEILSON">
-        <option value="ST BM R SILVA">
-        <option value="ST BM CHAGAS">
-        <option value="ST BM SALVADOR">
-        <option value="1º SGT BM 384/94 ADRIAN">
-        <option value="1º SGT BM 216/94 GUILHON">
-        <option value="1º SGT BM 525/94 R SOARES">
-        <option value="1º SGT BM 598/94 ALBUQUERQUE">
-        <option value="1º SGT BM 664/94 RALDENI">
-        <option value="1º SGT BM 292/94 PLÍNIO">
-        <option value="1º SGT BM 422/94 SOUSA">
-        <option value="1º SGT BM 398/94 M PAULO">
-        <option value="2º SGT BM 594/94 URBANO">
-        <option value="2º SGT BM 698/94 ALAN">
-        <option value="2º SGT BM 03/09 RÔMULO">
-        <option value="2º SGT BM 34/10 JOSEFRAN">
-        <option value="2º SGT BM 451/94 WHAYLAN">
-        <option value="2º SGT BM 61/07 MUNIZ">
-        <option value="3º SGT BM 93/15 DO VALE">
-        <option value="3º SGT BM 025/13 MATHEUS">
-        <option value="3º SGT BM 46/15 GUSTAVO">
-        <option value="3º SGT BM 63/15 MATIAS">
-        <option value="3º SGT BM 09/16 ANSELMO JÚNIOR">
-        <option value="3º SGT BM 29/16 F ABREU">
-        <option value="3º SGT BM 42/16 HENRIQUE BARROS">
-        <option value="3º SGT BM 05/16 BACELAR">
-        <option value="3º SGT BM 17/10 GOUDARD">
-        <option value="3º SGT BM 80/13 RODRIGUES">
-        <option value="CB BM 107/15 HAIDAR">
-    </datalist>
+    <div id="print-area" class="hidden print:block print:p-2 bg-white text-black w-full max-w-none"></div>
 
-    <datalist id="listaChefes">
-        <option value="1º TEN QOEBM MARCIO">
-        <option value="1º TEN QOCBM RONES">
-        <option value="1º TEN QOCBM GENILSON">
-        <option value="1º TEN QOABM S MENDES">
-        <option value="2º TEN QOCBM CARMO SOUSA">
-        <option value="2º TEN QOCBM EMÍDIO">
-        <option value="2º TEN QOCBM VIEGAS">
-        <option value="2º TEN QOCBM REINALDO">
-        <option value="2º TEN QOCBM ERICK">
-        <option value="2º TEN QOCBM JORDAN">
-        <option value="2º TEN QOCBM PASSOS">
-        <option value="ASP OF BM MARIANA GUILHON">
-        <option value="ASP OF BM MOREIRA">
-        <option value="ST BM BRUZACA">
-        <option value="ST BM TONE">
-        <option value="ST BM WADEILSON">
-        <option value="ST BM R SILVA">
-        <option value="ST BM CHAGAS">
-        <option value="ST BM SALVADOR">
-    </datalist>
-
-    <datalist id="listaPracas">
-        <option value="ST BM BRUZACA">
-        <option value="ST BM TONE">
-        <option value="ST BM RR QPBM BASTOS">
-        <option value="ST BM WADEILSON">
-        <option value="ST BM R SILVA">
-        <option value="ST BM CHAGAS">
-        <option value="ST BM SALVADOR">
-        <option value="1º SGT BM 384/94 ADRIAN">
-        <option value="1º SGT BM 216/94 GUILHON">
-        <option value="1º SGT BM 525/94 R SOARES">
-        <option value="1º SGT BM 598/94 ALBUQUERQUE">
-        <option value="1º SGT BM 664/94 RALDENI">
-        <option value="1º SGT BM 292/94 PLÍNIO">
-        <option value="1º SGT BM 422/94 SOUSA">
-        <option value="1º SGT BM 398/94 M PAULO">
-        <option value="2º SGT BM 594/94 URBANO">
-        <option value="2º SGT BM 698/94 ALAN">
-        <option value="2º SGT BM 03/09 RÔMULO">
-        <option value="2º SGT BM 34/10 JOSEFRAN">
-        <option value="2º SGT BM 451/94 WHAYLAN">
-        <option value="2º SGT BM 61/07 MUNIZ">
-        <option value="3º SGT BM 93/15 DO VALE">
-        <option value="3º SGT BM 025/13 MATHEUS">
-        <option value="3º SGT BM 46/15 GUSTAVO">
-        <option value="3º SGT BM 63/15 MATIAS">
-        <option value="3º SGT BM 09/16 ANSELMO JÚNIOR">
-        <option value="3º SGT BM 29/16 F ABREU">
-        <option value="3º SGT BM 42/16 HENRIQUE BARROS">
-        <option value="3º SGT BM 05/16 BACELAR">
-        <option value="3º SGT BM 17/10 GOUDARD">
-        <option value="3º SGT BM 80/13 RODRIGUES">
-        <option value="CB BM 107/15 HAIDAR">
-    </datalist>
-
-    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border-t-4 border-red-700 relative z-10">
+    <div class="p-4 pb-48 print:hidden">
         
-        <div class="text-center mb-6">
-            <div class="text-6xl mb-2">🚒</div>
-            <h1 class="text-2xl font-bold text-red-700 uppercase">Livro do Chefe de Socorro</h1>
-            <h2 class="text-lg font-bold text-gray-700">13º BBM / CBMMA</h2>
-            <p class="text-xs font-bold text-gray-400 mt-1 mb-4 uppercase tracking-wider">Desenvolvido pelo 3º SGT BM F Abreu</p>
+        <datalist id="listaMilitares">
+            <option value="1º TEN QOEBM MARCIO">
+            <option value="1º TEN QOCBM RONES">
+            <option value="1º TEN QOCBM GENILSON">
+            <option value="1º TEN QOABM S MENDES">
+            <option value="2º TEN QOCBM CARMO SOUSA">
+            <option value="2º TEN QOCBM EMÍDIO">
+            <option value="2º TEN QOCBM VIEGAS">
+            <option value="2º TEN QOCBM REINALDO">
+            <option value="2º TEN QOCBM ERICK">
+            <option value="2º TEN QOCBM JORDAN">
+            <option value="2º TEN QOCBM PASSOS">
+            <option value="ASP OF BM MARIANA GUILHON">
+            <option value="ASP OF BM MOREIRA">
+            <option value="ST BM BRUZACA">
+            <option value="ST BM TONE">
+            <option value="ST BM RR QPBM BASTOS">
+            <option value="ST BM WADEILSON">
+            <option value="ST BM R SILVA">
+            <option value="ST BM CHAGAS">
+            <option value="ST BM SALVADOR">
+            <option value="1º SGT BM 384/94 ADRIAN">
+            <option value="1º SGT BM 216/94 GUILHON">
+            <option value="1º SGT BM 525/94 R SOARES">
+            <option value="1º SGT BM 598/94 ALBUQUERQUE">
+            <option value="1º SGT BM 664/94 RALDENI">
+            <option value="1º SGT BM 292/94 PLÍNIO">
+            <option value="1º SGT BM 422/94 SOUSA">
+            <option value="1º SGT BM 398/94 M PAULO">
+            <option value="2º SGT BM 594/94 URBANO">
+            <option value="2º SGT BM 698/94 ALAN">
+            <option value="2º SGT BM 03/09 RÔMULO">
+            <option value="2º SGT BM 34/10 JOSEFRAN">
+            <option value="2º SGT BM 451/94 WHAYLAN">
+            <option value="2º SGT BM 61/07 MUNIZ">
+            <option value="3º SGT BM 93/15 DO VALE">
+            <option value="3º SGT BM 025/13 MATHEUS">
+            <option value="3º SGT BM 46/15 GUSTAVO">
+            <option value="3º SGT BM 63/15 MATIAS">
+            <option value="3º SGT BM 09/16 ANSELMO JÚNIOR">
+            <option value="3º SGT BM 29/16 F ABREU">
+            <option value="3º SGT BM 42/16 HENRIQUE BARROS">
+            <option value="3º SGT BM 05/16 BACELAR">
+            <option value="3º SGT BM 17/10 GOUDARD">
+            <option value="3º SGT BM 80/13 RODRIGUES">
+            <option value="CB BM 107/15 HAIDAR">
+        </datalist>
+
+        <datalist id="listaChefes">
+            <option value="1º TEN QOEBM MARCIO">
+            <option value="1º TEN QOCBM RONES">
+            <option value="1º TEN QOCBM GENILSON">
+            <option value="1º TEN QOABM S MENDES">
+            <option value="2º TEN QOCBM CARMO SOUSA">
+            <option value="2º TEN QOCBM EMÍDIO">
+            <option value="2º TEN QOCBM VIEGAS">
+            <option value="2º TEN QOCBM REINALDO">
+            <option value="2º TEN QOCBM ERICK">
+            <option value="2º TEN QOCBM JORDAN">
+            <option value="2º TEN QOCBM PASSOS">
+            <option value="ASP OF BM MARIANA GUILHON">
+            <option value="ASP OF BM MOREIRA">
+            <option value="ST BM BRUZACA">
+            <option value="ST BM TONE">
+            <option value="ST BM WADEILSON">
+            <option value="ST BM R SILVA">
+            <option value="ST BM CHAGAS">
+            <option value="ST BM SALVADOR">
+        </datalist>
+
+        <datalist id="listaPracas">
+            <option value="ST BM BRUZACA">
+            <option value="ST BM TONE">
+            <option value="ST BM RR QPBM BASTOS">
+            <option value="ST BM WADEILSON">
+            <option value="ST BM R SILVA">
+            <option value="ST BM CHAGAS">
+            <option value="ST BM SALVADOR">
+            <option value="1º SGT BM 384/94 ADRIAN">
+            <option value="1º SGT BM 216/94 GUILHON">
+            <option value="1º SGT BM 525/94 R SOARES">
+            <option value="1º SGT BM 598/94 ALBUQUERQUE">
+            <option value="1º SGT BM 664/94 RALDENI">
+            <option value="1º SGT BM 292/94 PLÍNIO">
+            <option value="1º SGT BM 422/94 SOUSA">
+            <option value="1º SGT BM 398/94 M PAULO">
+            <option value="2º SGT BM 594/94 URBANO">
+            <option value="2º SGT BM 698/94 ALAN">
+            <option value="2º SGT BM 03/09 RÔMULO">
+            <option value="2º SGT BM 34/10 JOSEFRAN">
+            <option value="2º SGT BM 451/94 WHAYLAN">
+            <option value="2º SGT BM 61/07 MUNIZ">
+            <option value="3º SGT BM 93/15 DO VALE">
+            <option value="3º SGT BM 025/13 MATHEUS">
+            <option value="3º SGT BM 46/15 GUSTAVO">
+            <option value="3º SGT BM 63/15 MATIAS">
+            <option value="3º SGT BM 09/16 ANSELMO JÚNIOR">
+            <option value="3º SGT BM 29/16 F ABREU">
+            <option value="3º SGT BM 42/16 HENRIQUE BARROS">
+            <option value="3º SGT BM 05/16 BACELAR">
+            <option value="3º SGT BM 17/10 GOUDARD">
+            <option value="3º SGT BM 80/13 RODRIGUES">
+            <option value="CB BM 107/15 HAIDAR">
+        </datalist>
+
+        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border-t-4 border-red-700">
             
-            <div class="bg-yellow-50 text-left p-5 rounded-md border-l-4 border-yellow-400 shadow-sm text-sm text-gray-800">
-                <p class="text-base mb-2"><strong>Bem-vindo ao sistema do Livro de Socorro!</strong></p>
-                <p class="mb-2">Preencha as informações do seu plantão. <strong>Tudo fica salvo automaticamente no seu celular ou computador</strong>, permitindo que o livro seja preenchido aos poucos no decorrer do serviço, sem perder os dados se fechar a aba.</p>
-                <p class="mb-3">A prioridade é o SEI. Ao final do plantão, o sistema formata as tabelas e deixa tudo pronto para ser colado lá. Em caso de instabilidade no SEI, incluímos a opção de Baixar PDF e assinar pelo portal Gov.br.</p>
-                <div class="bg-yellow-100 p-3 rounded border border-yellow-200 text-yellow-900">
-                    <span class="font-bold">Dúvidas sobre o sistema?</span> <a href="#" class="underline font-bold text-blue-700 hover:text-blue-900 cursor-not-allowed" title="O vídeo será adicionado em breve">Assistir vídeo tutorial (Em breve)</a>
+            <div class="text-center mb-6">
+                <div class="text-6xl mb-2">🚒</div>
+                <h1 class="text-2xl font-bold text-red-700 uppercase">Livro do Chefe de Socorro</h1>
+                <h2 class="text-lg font-bold text-gray-700">13º BBM / CBMMA</h2>
+                <p class="text-xs font-bold text-gray-400 mt-1 mb-4 uppercase tracking-wider">Desenvolvido pelo 3º SGT BM F Abreu</p>
+                
+                <div class="bg-yellow-50 text-left p-5 rounded-md border-l-4 border-yellow-400 shadow-sm text-sm text-gray-800">
+                    <p class="text-base mb-2"><strong>Bem-vindo ao sistema de geração do Livro de Socorro.</strong></p>
+                    <p class="mb-2">Preencha as informações do seu plantão abaixo. <strong>As informações ficam salvas automaticamente no seu navegador</strong>, permitindo que o livro seja preenchido e alterado aos poucos no decorrer do serviço, mesmo se você fechar a página.</p>
+                    <p class="mb-2">Ao final, o sistema organizará os dados, criará as tabelas no padrão oficial e deixará o documento pronto para ser colado no SEI com apenas um clique.</p>
+                    <p class="mb-3">Também é possível gerar o livro em PDF e assinar pelo Gov.br, caso necessário.</p>
+                    <div class="bg-yellow-100 p-3 rounded border border-yellow-200 text-yellow-900">
+                        <span class="font-bold">Em caso de dúvidas:</span> <a href="#" class="underline font-bold text-blue-700 hover:text-blue-900 cursor-not-allowed" title="O vídeo será adicionado em breve">Assistir vídeo tutorial (Disponível em breve)</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <form id="livroForm" class="space-y-6">
             
-            <section class="border-b pb-4 bg-red-50 p-4 rounded-lg">
-                <h2 class="text-lg font-semibold mb-3 text-red-800">Status Operacional das Viaturas</h2>
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">ABT-34: *</label>
-                        <select id="statusABT" class="mt-1 block w-full rounded-md border p-2 bg-white font-bold text-green-700" onchange="atualizarVisibilidadeVTRs()">
-                            <option value="Operante">Operante</option>
-                            <option value="Inoperante">Inoperante</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">AR-75: *</label>
-                        <select id="statusAR" class="mt-1 block w-full rounded-md border p-2 bg-white font-bold text-green-700" onchange="atualizarVisibilidadeVTRs()">
-                            <option value="Operante">Operante</option>
-                            <option value="Inoperante">Inoperante</option>
-                        </select>
-                    </div>
-                </div>
-                <p class="text-xs text-gray-500 mt-2">Viaturas inoperantes terão seus dados preenchidos com XXX automaticamente no documento final.</p>
-            </section>
-
-            <section class="border-b pb-4">
-                <h2 class="text-xl font-semibold mb-3">Serviço Diário</h2>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Data do Serviço: *</label>
-                    <input type="date" id="dataServico" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" required>
-                </div>
-            </section>
-
-            <section class="border-b pb-4">
-                <h2 class="text-xl font-semibold mb-3">Guarnição de Serviço</h2>
-                <p class="text-xs text-gray-500 mb-4 bg-gray-100 p-2 rounded border border-gray-200">Dica: Deixe em branco os campos onde não houver militar escalado. Eles serão substituídos automaticamente por "XXX" no documento do SEI ou PDF.</p>
+            <form id="livroForm" class="space-y-6">
                 
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <section class="border-b pb-4 bg-red-50 p-4 rounded-lg">
+                    <h2 class="text-lg font-semibold mb-3 text-red-800">Status Operacional das Viaturas</h2>
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">ABT-34: *</label>
+                            <select id="statusABT" class="mt-1 block w-full rounded-md border p-2 bg-white font-bold text-green-700" onchange="atualizarVisibilidadeVTRs()">
+                                <option value="Operante">Operante</option>
+                                <option value="Inoperante">Inoperante</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">AR-75: *</label>
+                            <select id="statusAR" class="mt-1 block w-full rounded-md border p-2 bg-white font-bold text-green-700" onchange="atualizarVisibilidadeVTRs()">
+                                <option value="Operante">Operante</option>
+                                <option value="Inoperante">Inoperante</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">Viaturas inoperantes terão seus dados preenchidos com XXX automaticamente no documento final.</p>
+                </section>
+
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-semibold mb-3">Serviço Diário</h2>
                     <div>
-                        <label class="block text-sm font-medium text-red-600">Chefe de Socorro: *</label>
-                        <input type="text" id="chefeSocorro" list="listaChefes" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal" required>
+                        <label class="block text-sm font-medium text-gray-700">Data do Serviço: *</label>
+                        <input type="date" id="dataServico" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2 border" required>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium">Aux. do Chefe de Socorro:</label>
-                        <input type="text" id="auxChefe" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-red-600">Cmt da Guarnição: *</label>
-                        <input type="text" id="cmtGuarnicao" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium">Chefe da 1ª Linha:</label>
-                        <input type="text" id="chefeLinha" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium">Aux. da 1ª Linha:</label>
-                        <input type="text" id="auxLinha" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
-                    </div>
-                </div>
-                
-                <h3 class="text-lg font-semibold mt-4 mb-2">Motoristas</h3>
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div id="blocoMotABT">
-                        <label class="block text-sm font-medium text-red-600">Motorista do ABT-34: *</label>
-                        <input type="text" id="motABT" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 border-red-300 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
-                    </div>
-                    <div id="blocoMotAR">
-                        <label class="block text-sm font-medium text-gray-700">Motorista do AR-75:</label>
-                        <select id="motAR" class="mt-1 block w-full rounded-md border p-2 bg-white">
-                            <option value="">Selecione um militar da guarnição...</option>
-                        </select>
-                        <p class="text-[10px] text-gray-500 mt-1">O motorista do AR deve estar escalado na guarnição acima.</p>
-                    </div>
-                </div>
-            </section>
+                </section>
 
-            <section class="border-b pb-4">
-                <h2 class="text-xl font-semibold mb-3">Serviço Interno</h2>
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-red-600">Operador de Comunicação: *</label>
-                    <input type="text" id="operadorCom" list="listaPracas" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal" required>
-                </div>
-            </section>
-
-            <section class="border-b pb-4">
-                <h2 class="text-xl font-semibold mb-3">Permutas de Serviço</h2>
-                <div id="permutasContainer" class="space-y-2"></div>
-                <button type="button" onclick="adicionarPermuta()" class="mt-2 text-sm bg-blue-100 text-blue-800 font-medium px-4 py-2 rounded shadow hover:bg-blue-200 transition">+ Adicionar Permuta</button>
-            </section>
-
-            <section class="border-b pb-4">
-                <h2 class="text-xl font-semibold mb-3">Armamento</h2>
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
-                        <label class="block text-sm font-medium text-red-600">Situação Pistola .40 (Permanência): *</label>
-                        <select id="sitPistola" class="mt-1 block w-full rounded-md border p-2" required>
-                            <option value="Operante">Operante</option>
-                            <option value="Inoperante">Inoperante</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-red-600">Qtd Munições: *</label>
-                        <input type="text" id="qtdMunicao" class="mt-1 block w-full rounded-md border p-2" value="13 (treze)" required>
-                    </div>
-                </div>
-            </section>
-
-            <section class="border-b pb-4">
-                <h2 class="text-xl font-semibold mb-3">Viaturas & Combustível</h2>
-                
-                <div id="secaoABT" class="bg-gray-50 p-3 rounded border">
-                    <h3 class="text-md font-semibold text-blue-800 border-b pb-1 mb-2">Dados do ABT-34</h3>
-                    <div class="grid grid-cols-2 gap-2 mb-2">
-                        <div class="col-span-2">
-                            <label class="block text-xs font-medium text-red-600">Observações: *</label>
-                            <input type="text" id="obsABT" placeholder="Ex: Não houve" class="border p-2 rounded w-full">
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-semibold mb-3">Guarnição de Serviço</h2>
+                    <p class="text-xs text-gray-500 mb-4 bg-gray-100 p-2 rounded border border-gray-200">Dica: Deixe em branco os campos onde não houver militar escalado. Eles serão substituídos automaticamente por "XXX" no documento final.</p>
+                    
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                            <label class="block text-sm font-medium text-red-600">Chefe de Socorro: *</label>
+                            <input type="text" id="chefeSocorro" list="listaChefes" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal" required>
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-red-600">Comb. Inicial: *</label>
-                            <select id="combIniABT" class="border p-2 rounded w-full"><option value="">Selecione</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                            <label class="block text-sm font-medium">Aux. do Chefe de Socorro:</label>
+                            <input type="text" id="auxChefe" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-red-600">Comb. Final: *</label>
-                            <select id="combFinABT" class="border p-2 rounded w-full"><option value="">Selecione</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                            <label class="block text-sm font-medium text-red-600">Cmt da Guarnição: *</label>
+                            <input type="text" id="cmtGuarnicao" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal" required>
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-red-600">KM Inicial: *</label>
-                            <input type="number" id="kmIniABT" placeholder="Ex: 84133" class="border p-2 rounded w-full">
+                            <label class="block text-sm font-medium">Chefe da 1ª Linha:</label>
+                            <input type="text" id="chefeLinha" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
                         </div>
                         <div>
-                            <label class="block text-xs font-medium text-red-600">KM Final: *</label>
-                            <input type="number" id="kmFinABT" placeholder="Ex: 84133" class="border p-2 rounded w-full">
-                        </div>
-                        <div class="col-span-2">
-                            <label class="block text-xs font-medium text-gray-700">Abastecimento (L):</label>
-                            <input type="number" id="abastABT" placeholder="" class="border p-2 rounded w-full bg-white">
+                            <label class="block text-sm font-medium">Aux. da 1ª Linha:</label>
+                            <input type="text" id="auxLinha" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
                         </div>
                     </div>
-                </div>
-
-                <div id="secaoAR" class="bg-gray-50 p-3 rounded border mt-4">
-                    <h3 class="text-md font-semibold text-blue-800 border-b pb-1 mb-2">Dados do AR-75</h3>
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="col-span-2">
-                            <label class="block text-xs font-medium text-red-600">Observações: *</label>
-                            <input type="text" id="obsAR" placeholder="Ex: Não houve" class="border p-2 rounded w-full">
+                    
+                    <h3 class="text-lg font-semibold mt-4 mb-2">Motoristas</h3>
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div id="blocoMotABT">
+                            <label class="block text-sm font-medium text-red-600">Motorista do ABT-34: *</label>
+                            <input type="text" id="motABT" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 border-red-300 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
                         </div>
-                        <div>
-                            <label class="block text-xs font-medium text-red-600">Comb. Inicial: *</label>
-                            <select id="combIniAR" class="border p-2 rounded w-full"><option value="">Selecione</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-red-600">Comb. Final: *</label>
-                            <select id="combFinAR" class="border p-2 rounded w-full"><option value="">Selecione</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-red-600">KM Inicial: *</label>
-                            <input type="number" id="kmIniAR" placeholder="Ex: 52670" class="border p-2 rounded w-full">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-red-600">KM Final: *</label>
-                            <input type="number" id="kmFinAR" placeholder="Ex: 52693" class="border p-2 rounded w-full">
-                        </div>
-                        <div class="col-span-2">
-                            <label class="block text-xs font-medium text-gray-700">Abastecimento (L):</label>
-                            <input type="number" id="abastAR" placeholder="" class="border p-2 rounded w-full bg-white">
+                        <div id="blocoMotAR">
+                            <label class="block text-sm font-medium text-gray-700">Motorista do AR-75:</label>
+                            <select id="motAR" class="mt-1 block w-full rounded-md border p-2 bg-white">
+                                <option value="">Selecione um militar da guarnição...</option>
+                            </select>
+                            <p class="text-[10px] text-gray-500 mt-1">O motorista do AR deve estar escalado na guarnição acima.</p>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <section class="border-b pb-4">
-                <h2 class="text-xl font-semibold mb-3">Quarto de Hora</h2>
-                <div id="quartoHoraContainer" class="space-y-2"></div>
-                <button type="button" onclick="adicionarQuartoHora()" class="mt-2 text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded shadow hover:bg-blue-200 transition">+ Adicionar Turno Manual</button>
-            </section>
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-semibold mb-3">Serviço Interno</h2>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-red-600">Operador de Comunicação: *</label>
+                        <input type="text" id="operadorCom" list="listaPracas" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal" required>
+                    </div>
+                </section>
 
-            <section class="border-b pb-4">
-                <h2 class="text-xl font-semibold mb-3">Ocorrências</h2>
-                <div id="ocorrenciasContainer" class="space-y-4"></div>
-                <button type="button" onclick="adicionarOcorrencia()" class="mt-4 text-sm bg-blue-100 text-blue-800 font-medium px-4 py-2 rounded shadow hover:bg-blue-200 transition">+ Adicionar Ocorrência</button>
-            </section>
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-semibold mb-3">Permutas de Serviço</h2>
+                    <div id="permutasContainer" class="space-y-2"></div>
+                    <button type="button" onclick="adicionarPermuta()" class="mt-2 text-sm bg-blue-100 text-blue-800 font-medium px-4 py-2 rounded shadow hover:bg-blue-200 transition">+ Adicionar Permuta</button>
+                </section>
 
-            <section class="border-b pb-4">
-                <h2 class="text-xl font-semibold mb-3 text-red-600">Alterações: *</h2>
-                <textarea id="alteracoes" rows="4" class="mt-1 block w-full rounded-md border p-2" placeholder="Relate as alterações aqui. Se não houver, digite 'Não Houve'." required></textarea>
-            </section>
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-semibold mb-3">Armamento</h2>
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div>
+                            <label class="block text-sm font-medium text-red-600">Situação Pistola .40 (Permanência): *</label>
+                            <select id="sitPistola" class="mt-1 block w-full rounded-md border p-2" required>
+                                <option value="Operante">Operante</option>
+                                <option value="Inoperante">Inoperante</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-red-600">Qtd Munições: *</label>
+                            <input type="text" id="qtdMunicao" class="mt-1 block w-full rounded-md border p-2" value="13 (treze)" required>
+                        </div>
+                    </div>
+                </section>
 
-            <section>
-                <h2 class="text-xl font-semibold mb-3">Passagem de Serviço</h2>
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div class="sm:col-span-2">
-                        <label class="block text-sm font-medium text-red-600">Nome e Posto/Graduação do Substituto: *</label>
-                        <input type="text" id="substituto" list="listaChefes" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 2º TEN QOCBM FULANO DE TAL" required>
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-semibold mb-3">Viaturas & Combustível</h2>
+                    
+                    <div id="secaoABT" class="bg-gray-50 p-3 rounded border">
+                        <h3 class="text-md font-semibold text-blue-800 border-b pb-1 mb-2">Dados do ABT-34</h3>
+                        <div class="grid grid-cols-2 gap-2 mb-2">
+                            <div class="col-span-2">
+                                <label class="block text-xs font-medium text-red-600">Observações: *</label>
+                                <input type="text" id="obsABT" placeholder="Ex: Não houve" class="border p-2 rounded w-full">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-red-600">Comb. Inicial: *</label>
+                                <select id="combIniABT" class="border p-2 rounded w-full"><option value="">Selecione</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-red-600">Comb. Final: *</label>
+                                <select id="combFinABT" class="border p-2 rounded w-full"><option value="">Selecione</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-red-600">KM Inicial: *</label>
+                                <input type="number" id="kmIniABT" placeholder="Ex: 84133" class="border p-2 rounded w-full">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-red-600">KM Final: *</label>
+                                <input type="number" id="kmFinABT" placeholder="Ex: 84133" class="border p-2 rounded w-full">
+                            </div>
+                            <div class="col-span-2">
+                                <label class="block text-xs font-medium text-gray-700">Abastecimento (L):</label>
+                                <input type="number" id="abastABT" placeholder="" class="border p-2 rounded w-full bg-white">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="sm:col-span-2 mt-4 border-t pt-4">
-                        <label class="block text-sm font-medium text-red-600">Seu Nome Completo: *</label>
-                        <input type="text" id="nomeAtual" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: João Batista da Silva" required>
+                    <div id="secaoAR" class="bg-gray-50 p-3 rounded border mt-4">
+                        <h3 class="text-md font-semibold text-blue-800 border-b pb-1 mb-2">Dados do AR-75</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="col-span-2">
+                                <label class="block text-xs font-medium text-red-600">Observações: *</label>
+                                <input type="text" id="obsAR" placeholder="Ex: Não houve" class="border p-2 rounded w-full">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-red-600">Comb. Inicial: *</label>
+                                <select id="combIniAR" class="border p-2 rounded w-full"><option value="">Selecione</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-red-600">Comb. Final: *</label>
+                                <select id="combFinAR" class="border p-2 rounded w-full"><option value="">Selecione</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-red-600">KM Inicial: *</label>
+                                <input type="number" id="kmIniAR" placeholder="Ex: 52670" class="border p-2 rounded w-full">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-red-600">KM Final: *</label>
+                                <input type="number" id="kmFinAR" placeholder="Ex: 52693" class="border p-2 rounded w-full">
+                            </div>
+                            <div class="col-span-2">
+                                <label class="block text-xs font-medium text-gray-700">Abastecimento (L):</label>
+                                <input type="number" id="abastAR" placeholder="" class="border p-2 rounded w-full bg-white">
+                            </div>
+                        </div>
                     </div>
-                    <div class="sm:col-span-2">
-                        <label class="block text-sm font-medium text-red-600">Seu Posto/Graduação: *</label>
-                        <input type="text" id="postoAtual" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 2º TEN QOCBM" required>
+                </section>
+
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-semibold mb-3">Quarto de Hora</h2>
+                    <div id="quartoHoraContainer" class="space-y-2"></div>
+                    <button type="button" onclick="adicionarQuartoHora()" class="mt-2 text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded shadow hover:bg-blue-200 transition">+ Adicionar Turno Manual</button>
+                </section>
+
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-semibold mb-3">Ocorrências</h2>
+                    <div id="ocorrenciasContainer" class="space-y-4"></div>
+                    <button type="button" onclick="adicionarOcorrencia()" class="mt-4 text-sm bg-blue-100 text-blue-800 font-medium px-4 py-2 rounded shadow hover:bg-blue-200 transition">+ Adicionar Ocorrência</button>
+                </section>
+
+                <section class="border-b pb-4">
+                    <h2 class="text-xl font-semibold mb-3 text-red-600">Alterações: *</h2>
+                    <textarea id="alteracoes" rows="4" class="mt-1 block w-full rounded-md border p-2" placeholder="Relate as alterações aqui. Se não houver, digite 'Não Houve'." required></textarea>
+                </section>
+
+                <section>
+                    <h2 class="text-xl font-semibold mb-3">Passagem de Serviço</h2>
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-medium text-red-600">Nome e Posto/Graduação do Substituto: *</label>
+                            <input type="text" id="substituto" list="listaChefes" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 2º TEN QOCBM FULANO DE TAL" required>
+                        </div>
+
+                        <div class="sm:col-span-2 mt-4 border-t pt-4">
+                            <label class="block text-sm font-medium text-red-600">Seu Nome Completo: *</label>
+                            <input type="text" id="nomeAtual" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: João Batista da Silva" required>
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-medium text-red-600">Seu Posto/Graduação: *</label>
+                            <input type="text" id="postoAtual" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 2º TEN QOCBM" required>
+                        </div>
                     </div>
-                </div>
+                </section>
+
+            </form>
+
+            <section class="mt-10 bg-white p-5 rounded-lg border border-gray-300 shadow-sm text-sm text-gray-800">
+                <h3 class="font-bold text-gray-900 mb-4 text-base uppercase border-b pb-2">📖 Fluxo de Finalização:</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <span class="mr-2 text-lg">1️⃣</span>
+                        <div>Clique no botão verde <strong class="text-green-700">Gerar Livro e Copiar (SEI)</strong>. O sistema deixará tudo formatado e copiado invisivelmente no seu aparelho.</div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2 text-lg">2️⃣</span>
+                        <div>Clique em <strong class="text-blue-700">Acessar SEI</strong>. Crie um documento em branco no seu processo e apenas Cole (Ctrl+V). Assine digitalmente por lá.</div>
+                    </li>
+                    <li class="flex items-start bg-gray-100 p-2 rounded">
+                        <span class="mr-2 text-lg">📄</span>
+                        <div><strong>Opção Alternativa (PDF):</strong> Se preferir ou precisar, você também pode clicar em <strong class="text-gray-700">Baixar PDF</strong> e usar o botão <strong class="text-indigo-700">Assinar Gov.br</strong> para enviar e assinar o documento digitalmente.</div>
+                    </li>
+                </ul>
             </section>
 
-        </form>
-
-        <section class="mt-10 bg-white p-5 rounded-lg border border-gray-300 shadow-sm text-sm text-gray-800">
-            <h3 class="font-bold text-gray-900 mb-4 text-base uppercase border-b pb-2">📖 Fluxo de Finalização:</h3>
-            <ul class="space-y-4">
-                <li class="flex items-start">
-                    <span class="mr-2 text-lg">1️⃣</span>
-                    <div>Clique no botão verde <strong class="text-green-700">Gerar Livro e Copiar (SEI)</strong>. O sistema deixará tudo formatado e copiado invisivelmente no seu aparelho.</div>
-                </li>
-                <li class="flex items-start">
-                    <span class="mr-2 text-lg">2️⃣</span>
-                    <div>Clique em <strong class="text-blue-700">Acessar SEI</strong>. Crie um documento em branco no seu processo e apenas Cole (Ctrl+V). Assine digitalmente por lá.</div>
-                </li>
-                <li class="flex items-start bg-gray-100 p-2 rounded">
-                    <span class="mr-2 text-lg">📄</span>
-                    <div><strong>Opção Alternativa (PDF):</strong> Se preferir ou precisar, você também pode clicar em <strong class="text-gray-700">Baixar PDF</strong> e usar o botão <strong class="text-indigo-700">Assinar Gov.br</strong> para enviar e assinar o documento digitalmente.</div>
-                </li>
-            </ul>
-        </section>
-
-    </div>
-
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-3 shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.15)] max-w-3xl mx-auto z-50 flex flex-col gap-2">
+        </div>
+    </div> <div class="no-print fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-3 shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.15)] max-w-3xl mx-auto z-50 flex flex-col gap-2">
         <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm">Gerar Livro e Copiar (SEI)</button>
         
         <div class="flex gap-2 w-full">
             <a href="https://sei.ma.gov.br/" target="_blank" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold text-xs text-center flex items-center justify-center transition shadow-sm leading-tight">Acessar<br>SEI</a>
-            <button onclick="gerarPDF()" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-lg font-bold text-xs text-center transition shadow-sm leading-tight">Baixar<br>PDF</button>
+            <button onclick="gerarPDFNativo()" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-lg font-bold text-xs text-center transition shadow-sm leading-tight">Baixar<br>PDF</button>
             <a href="http://assinador.iti.br/" target="_blank" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-bold text-xs text-center flex items-center justify-center transition shadow-sm leading-tight">Assinar<br>Gov.br</a>
             <button onclick="limparDados()" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-bold text-xs text-center transition shadow-sm leading-tight">Apagar<br>Tudo</button>
         </div>
@@ -429,7 +444,6 @@
             salvarLocal();
         }
 
-        // Função que resgata todos os militares do serviço ativo para popular Dropdowns dinâmicos (Permutas e Quartos)
         function obterEquipeAtiva() {
             const inputs = ['chefeSocorro', 'auxChefe', 'cmtGuarnicao', 'chefeLinha', 'auxLinha', 'motABT'];
             let escalados = [];
@@ -448,7 +462,6 @@
             return [...new Set(escalados)];
         }
 
-        // Dispara sempre que algum input da guarnição for alterado
         document.querySelectorAll('.guarnicao-input').forEach(el => {
             el.addEventListener('input', () => {
                 atualizarMotAR();
@@ -457,7 +470,6 @@
             });
         });
 
-        // Dispara quando o motorista do AR mudar
         document.getElementById('motAR').addEventListener('change', () => {
             renderizarQuartos();
             renderizarPermutas();
@@ -528,14 +540,12 @@
             ];
 
             permutas.forEach((p) => {
-                // Validação do militar substituto
                 let selectValido = equipe.includes(p.entra) || p.entra === '' ? p.entra : ''; 
                 let selectedOptionsHtml = '<option value="">Militar que entra...</option>';
                 equipe.forEach(m => {
                     selectedOptionsHtml += `<option value="${m}" ${selectValido === m ? 'selected' : ''}>${m}</option>`;
                 });
 
-                // Validação das Funções
                 let selectFuncoesHtml = '<option value="">Função...</option>';
                 funcoesDisponiveis.forEach(f => {
                     selectFuncoesHtml += `<option value="${f}" ${p.funcao === f ? 'selected' : ''}>${f}</option>`;
@@ -855,52 +865,33 @@
             }
         }
 
-        // NOVA TÉCNICA À PROVA DE FALHAS PARA GERAR O PDF
-        function gerarPDF() {
+        // FUNÇÃO NATIVA PERFEITA DE GERAÇÃO DE PDF (SEM BIBLIOTECAS EXTERNAS)
+        function gerarPDFNativo() {
             if(!document.getElementById('livroForm').reportValidity()) {
                 alert("Atenção! Por favor, preencha todos os campos obrigatórios (marcados com um asterisco *) antes de gerar o PDF.");
                 return;
             }
 
-            // Cria um elemento real e joga pro fundo da página (invisível ao olho, mas visível pra biblioteca)
-            const divPdf = document.createElement('div');
-            divPdf.innerHTML = gerarEstruturaDocumento();
-            divPdf.style.position = 'absolute';
-            divPdf.style.top = '0';
-            divPdf.style.left = '0';
-            divPdf.style.width = '800px'; 
-            divPdf.style.padding = '20px';
-            divPdf.style.backgroundColor = '#ffffff'; // Garante o fundo branco da folha
-            divPdf.style.color = '#000000';
-            divPdf.style.zIndex = '-9999'; // Joga para o fundo
-            
-            document.body.appendChild(divPdf);
+            // Injeta o HTML formatado na área de impressão invisível
+            document.getElementById('print-area').innerHTML = gerarEstruturaDocumento();
 
-            // Resgata e formata a data para colocar no título do arquivo
+            // Muda o título da página rapidamente para que o PDF baixe com o nome correto
+            const originalTitle = document.title;
             const dataInput = document.getElementById('dataServico').value;
             let dataFormatada = "";
             if(dataInput) {
-                const partes = dataInput.split('-'); // O input entrega [YYYY, MM, DD]
+                const partes = dataInput.split('-'); // [YYYY, MM, DD]
                 dataFormatada = `_${partes[2]}_${partes[1]}_${partes[0]}`; // Fica _DD_MM_YYYY
             }
+            document.title = `Livro_Chefe_Socorro_13BBM${dataFormatada}`;
 
-            const opt = {
-              margin:       10,
-              filename:     `Livro_Chefe_Socorro_13BBM${dataFormatada}.pdf`,
-              image:        { type: 'jpeg', quality: 0.98 },
-              html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-              jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            
-            // Roda a conversão
-            html2pdf().set(opt).from(divPdf).save().then(() => {
-                // Apaga o documento do fundo da página pra não pesar
-                document.body.removeChild(divPdf);
-                alert("PDF gerado e baixado com sucesso!\n\nAgora você pode clicar em 'Assinar Gov.br', enviar o arquivo lá, e assinar digitalmente.");
-            }).catch(err => {
-                document.body.removeChild(divPdf);
-                alert("Ocorreu um erro ao gerar o PDF. Tente novamente.");
-            });
+            // Aciona o motor nativo de impressão/PDF do celular ou PC
+            window.print();
+
+            // Devolve o título original ao site logo após a tela de PDF abrir
+            setTimeout(() => {
+                document.title = originalTitle;
+            }, 1000);
         }
 
         window.onload = carregarLocal;
