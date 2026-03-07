@@ -360,7 +360,16 @@
 
             </form>
 
-            <section class="mt-10 bg-white p-5 rounded-lg border border-gray-300 shadow-sm text-sm text-gray-800">
+            <section class="mt-10 bg-indigo-50 p-5 rounded-lg border border-indigo-200 shadow-sm text-sm text-indigo-900">
+                <h3 class="font-bold text-indigo-900 mb-2 text-base">🔄 Sincronizar (Celular ↔ Computador)</h3>
+                <p class="mb-4">Começou a preencher no celular e quer continuar no computador do quartel (ou vice-versa)?</p>
+                <div class="flex gap-2">
+                    <button onclick="exportarDados()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded font-bold transition flex-1">1. Copiar Código</button>
+                    <button onclick="importarDados()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded font-bold transition flex-1">2. Colar Código</button>
+                </div>
+            </section>
+
+            <section class="mt-6 bg-white p-5 rounded-lg border border-gray-300 shadow-sm text-sm text-gray-800">
                 <h3 class="font-bold text-gray-900 mb-4 text-base uppercase border-b pb-2">📖 Fluxo de Finalização:</h3>
                 <ul class="space-y-4">
                     <li class="flex items-start">
@@ -369,7 +378,7 @@
                     </li>
                     <li class="flex items-start">
                         <span class="mr-2 text-lg">2️⃣</span>
-                        <div>Clique em <strong class="text-blue-700">Acessar SEI</strong>. Crie um documento em branco no seu processo e apenas Cole (Ctrl+V). Assine digitalmente por lá.</div>
+                        <div>Clique em <strong class="text-blue-700">Acessar SEI</strong>. <br><span class="text-xs text-red-600 font-bold">DICA DE CELULAR:</span> No navegador do celular, ative a opção "Versão para Computador" antes de abrir o SEI. Crie um documento em branco no seu processo e apenas Cole (Ctrl+V). Assine digitalmente por lá.</div>
                     </li>
                     <li class="flex items-start bg-gray-100 p-2 rounded">
                         <span class="mr-2 text-lg">📄</span>
@@ -380,7 +389,7 @@
 
         </div>
     </div> <div class="no-print fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-3 shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.15)] max-w-3xl mx-auto z-50 flex flex-col gap-2">
-        <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm">Gerar Livro e Copiar para o SEI</button>
+        <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm">Gerar Livro e Copiar (SEI)</button>
         
         <div class="flex gap-2 w-full">
             <a href="https://sei.ma.gov.br/" target="_blank" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold text-xs text-center flex items-center justify-center transition shadow-sm leading-tight">Acessar<br>SEI</a>
@@ -479,7 +488,6 @@
             renderizarPermutas();
             salvarLocal();
         });
-
 
         function adicionarQuartoHora() {
             const id = Date.now();
@@ -668,6 +676,36 @@
             if(confirm("ATENÇÃO: Isso vai apagar TODAS as informações do plantão atual da tela.\nTem certeza que deseja limpar o formulário e começar um novo plantão?")) {
                 localStorage.removeItem('livroChefeSocorro');
                 location.reload();
+            }
+        }
+
+        // --- EXPORTAR E IMPORTAR (CELULAR <-> PC) ---
+        function exportarDados() {
+            const dados = localStorage.getItem('livroChefeSocorro');
+            if (!dados) {
+                alert("O formulário está vazio. Não há dados para transferir.");
+                return;
+            }
+            // Base64 seguro para caracteres especiais
+            const codigo = btoa(unescape(encodeURIComponent(dados))); 
+            navigator.clipboard.writeText(codigo).then(() => {
+                alert("✅ CÓDIGO COPIADO COM SUCESSO!\n\nAgora mande esse código para o seu WhatsApp Web. Depois, abra o sistema no computador e clique em '2. Colar Código'.");
+            }).catch(() => {
+                alert("Erro ao copiar. Tente novamente.");
+            });
+        }
+
+        function importarDados() {
+            const codigo = prompt("Cole aqui o código gerado no seu celular:");
+            if (!codigo) return;
+            try {
+                const dados = decodeURIComponent(escape(atob(codigo)));
+                JSON.parse(dados); // Valida se é um JSON válido
+                localStorage.setItem('livroChefeSocorro', dados);
+                alert("✅ DADOS RECEBIDOS!\nA página será atualizada com as informações do seu celular.");
+                location.reload();
+            } catch(e) {
+                alert("❌ Erro: Código inválido ou incompleto. Verifique se você copiou todo o texto gerado.");
             }
         }
 
@@ -868,7 +906,7 @@
                 return;
             }
 
-            const html = gerarEstruturaDocumento(false); // false = Sem cabeçalho para o SEI
+            const html = gerarEstruturaDocumento(false); 
             const outputDiv = document.getElementById('sei-output');
             outputDiv.innerHTML = html;
 
@@ -889,24 +927,20 @@
                 return;
             }
 
-            // Injeta o HTML formatado (com Cabeçalho = true) na área de impressão invisível
             document.getElementById('print-area').innerHTML = gerarEstruturaDocumento(true);
 
-            // Muda o título da página rapidamente para que o PDF baixe com o nome correto
             const originalTitle = document.title;
             const dataInput = document.getElementById('dataServico').value;
             let dataFormatada = "";
             if(dataInput) {
-                const partes = dataInput.split('-'); // [YYYY, MM, DD]
-                dataFormatada = `_${partes[2]}_${partes[1]}_${partes[0]}`; // Fica _DD_MM_YYYY
+                const partes = dataInput.split('-'); 
+                dataFormatada = `_${partes[2]}_${partes[1]}_${partes[0]}`; 
             }
             document.title = `Livro_Chefe_Socorro_13BBM${dataFormatada}`;
 
-            // Pequeno atraso para garantir que a imagem do cabeçalho carregue antes da tela de impressão abrir
             setTimeout(() => {
                 window.print();
                 
-                // Devolve o título original ao site logo após a tela de PDF abrir
                 setTimeout(() => {
                     document.title = originalTitle;
                 }, 1000);
