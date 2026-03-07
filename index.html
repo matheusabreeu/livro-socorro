@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-<body class="bg-gray-100 p-4 font-sans pb-48">
+<body class="bg-gray-100 p-4 font-sans pb-48 relative">
 
     <datalist id="listaMilitares">
         <option value="1º TEN QOEBM MARCIO">
@@ -115,7 +115,7 @@
         <option value="CB BM 107/15 HAIDAR">
     </datalist>
 
-    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border-t-4 border-red-700">
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border-t-4 border-red-700 relative z-10">
         
         <div class="text-center mb-6">
             <div class="text-6xl mb-2">🚒</div>
@@ -124,12 +124,11 @@
             <p class="text-xs font-bold text-gray-400 mt-1 mb-4 uppercase tracking-wider">Desenvolvido pelo 3º SGT BM F Abreu</p>
             
             <div class="bg-yellow-50 text-left p-5 rounded-md border-l-4 border-yellow-400 shadow-sm text-sm text-gray-800">
-                <p class="text-base mb-2"><strong>Bem-vindo ao sistema de geração do Livro de Socorro.</strong></p>
-                <p class="mb-2">Preencha as informações do seu plantão abaixo. <strong>As informações ficam salvas automaticamente no seu navegador</strong>, permitindo que o livro seja preenchido e alterado aos poucos no decorrer do serviço, mesmo se você fechar a página.</p>
-                <p class="mb-2">Ao final, o sistema organizará os dados, criará as tabelas no padrão oficial e deixará o documento pronto para ser colado no SEI com apenas um clique.</p>
-                <p class="mb-3">Também é possível gerar o livro em PDF e assinar pelo Gov.br, caso necessário.</p>
+                <p class="text-base mb-2"><strong>Bem-vindo ao sistema do Livro de Socorro!</strong></p>
+                <p class="mb-2">Preencha as informações do seu plantão. <strong>Tudo fica salvo automaticamente no seu celular ou computador</strong>, permitindo que o livro seja preenchido aos poucos no decorrer do serviço, sem perder os dados se fechar a aba.</p>
+                <p class="mb-3">A prioridade é o SEI. Ao final do plantão, o sistema formata as tabelas e deixa tudo pronto para ser colado lá. Em caso de instabilidade no SEI, incluímos a opção de Baixar PDF e assinar pelo portal Gov.br.</p>
                 <div class="bg-yellow-100 p-3 rounded border border-yellow-200 text-yellow-900">
-                    <span class="font-bold">Em caso de dúvidas:</span> <a href="#" class="underline font-bold text-blue-700 hover:text-blue-900 cursor-not-allowed" title="O vídeo será adicionado em breve">Assistir vídeo tutorial (Disponível em breve)</a>
+                    <span class="font-bold">Dúvidas sobre o sistema?</span> <a href="#" class="underline font-bold text-blue-700 hover:text-blue-900 cursor-not-allowed" title="O vídeo será adicionado em breve">Assistir vídeo tutorial (Em breve)</a>
                 </div>
             </div>
         </div>
@@ -342,27 +341,19 @@
         </form>
 
         <section class="mt-10 bg-white p-5 rounded-lg border border-gray-300 shadow-sm text-sm text-gray-800">
-            <h3 class="font-bold text-gray-900 mb-4 text-base uppercase border-b pb-2">📖 Como utilizar o sistema:</h3>
+            <h3 class="font-bold text-gray-900 mb-4 text-base uppercase border-b pb-2">📖 Fluxo de Finalização:</h3>
             <ul class="space-y-4">
                 <li class="flex items-start">
-                    <span class="mr-2 text-lg">📝</span>
-                    <div><strong>Preencha os dados:</strong> Tudo fica salvo no seu celular automaticamente. Se a internet cair ou você fechar o site para atender uma ocorrência, não se preocupe, os dados continuam aqui quando voltar.</div>
+                    <span class="mr-2 text-lg">1️⃣</span>
+                    <div>Clique no botão verde <strong class="text-green-700">Gerar Livro e Copiar (SEI)</strong>. O sistema deixará tudo formatado e copiado invisivelmente no seu aparelho.</div>
                 </li>
                 <li class="flex items-start">
-                    <span class="mr-2 text-lg">📋</span>
-                    <div>Clique no botão verde <strong class="text-green-700">Gerar Livro e Copiar (SEI)</strong>: O sistema organizará todas as tabelas e deixará o texto copiado no seu aparelho.</div>
+                    <span class="mr-2 text-lg">2️⃣</span>
+                    <div>Clique em <strong class="text-blue-700">Acessar SEI</strong>. Crie um documento em branco no seu processo e apenas Cole (Ctrl+V). Assine digitalmente por lá.</div>
                 </li>
-                <li class="flex items-start">
-                    <span class="mr-2 text-lg">🌐</span>
-                    <div>Clique no botão azul <strong class="text-blue-700">Acessar SEI</strong>: O site do SEI vai abrir em outra aba. Crie um documento em branco no seu processo e cole as informações copiadas.</div>
-                </li>
-                <li class="flex items-start">
+                <li class="flex items-start bg-gray-100 p-2 rounded">
                     <span class="mr-2 text-lg">📄</span>
-                    <div><strong>Assinatura Gov.br:</strong> Caso seja necessário, você também pode clicar em <strong class="text-gray-700">Baixar PDF</strong> e usar o botão <strong class="text-indigo-700">Assinar Gov.br</strong> para assinar o documento digitalmente.</div>
-                </li>
-                <li class="flex items-start">
-                    <span class="mr-2 text-lg">⚠️</span>
-                    <div>Clique no botão vermelho <strong class="text-red-700">Apagar Tudo</strong>: Use este botão <strong>apenas</strong> na hora que passar o serviço e quiser limpar a tela para a próxima guarnição.</div>
+                    <div><strong>Opção Alternativa (PDF):</strong> Se preferir ou precisar, você também pode clicar em <strong class="text-gray-700">Baixar PDF</strong> e usar o botão <strong class="text-indigo-700">Assinar Gov.br</strong> para enviar e assinar o documento digitalmente.</div>
                 </li>
             </ul>
         </section>
@@ -370,7 +361,7 @@
     </div>
 
     <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-3 shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.15)] max-w-3xl mx-auto z-50 flex flex-col gap-2">
-        <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm">Gerar Livro e Copiar para o SEI</button>
+        <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm">Gerar Livro e Copiar (SEI)</button>
         
         <div class="flex gap-2 w-full">
             <a href="https://sei.ma.gov.br/" target="_blank" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold text-xs text-center flex items-center justify-center transition shadow-sm leading-tight">Acessar<br>SEI</a>
@@ -438,18 +429,7 @@
             salvarLocal();
         }
 
-        document.querySelectorAll('.guarnicao-input').forEach(el => {
-            el.addEventListener('input', () => {
-                atualizarMotAR();
-                renderizarQuartos();
-            });
-        });
-
-        document.getElementById('motAR').addEventListener('change', () => {
-            renderizarQuartos();
-            salvarLocal();
-        });
-
+        // Função que resgata todos os militares do serviço ativo para popular os Dropdowns dinâmicos
         function obterEquipeAtiva() {
             const inputs = ['chefeSocorro', 'auxChefe', 'cmtGuarnicao', 'chefeLinha', 'auxLinha', 'motABT'];
             let escalados = [];
@@ -467,6 +447,23 @@
             
             return [...new Set(escalados)];
         }
+
+        // Dispara sempre que algum input da guarnição for alterado
+        document.querySelectorAll('.guarnicao-input').forEach(el => {
+            el.addEventListener('input', () => {
+                atualizarMotAR();
+                renderizarQuartos();
+                renderizarPermutas();
+            });
+        });
+
+        // Dispara quando o motorista do AR mudar
+        document.getElementById('motAR').addEventListener('change', () => {
+            renderizarQuartos();
+            renderizarPermutas();
+            salvarLocal();
+        });
+
 
         function adicionarQuartoHora() {
             const id = Date.now();
@@ -523,12 +520,25 @@
         function renderizarPermutas() {
             const container = document.getElementById('permutasContainer');
             container.innerHTML = '';
+
+            const equipe = obterEquipeAtiva();
+
             permutas.forEach((p) => {
+                // Montar o select do Militar que Entra com base na equipe ativa
+                let selectValido = equipe.includes(p.entra) || p.entra === '' ? p.entra : ''; 
+                
+                let selectedOptionsHtml = '<option value="">Selecione o Militar da guarnição...</option>';
+                equipe.forEach(m => {
+                    selectedOptionsHtml += `<option value="${m}" ${selectValido === m ? 'selected' : ''}>${m}</option>`;
+                });
+
                 container.innerHTML += `
                     <div class="flex gap-2 bg-gray-50 p-2 rounded items-end">
                         <input type="text" placeholder="Função" value="${p.funcao}" oninput="atualizarPermuta(${p.id}, 'funcao', this.value)" class="border p-1 rounded w-1/3 text-sm">
                         <input type="text" placeholder="Sai" list="listaMilitares" value="${p.sai}" oninput="atualizarPermuta(${p.id}, 'sai', this.value)" class="border p-1 rounded w-1/3 text-sm">
-                        <input type="text" placeholder="Entra" list="listaMilitares" value="${p.entra}" oninput="atualizarPermuta(${p.id}, 'entra', this.value)" class="border p-1 rounded w-1/3 text-sm">
+                        <select onchange="atualizarPermuta(${p.id}, 'entra', this.value)" class="border p-1 rounded w-1/3 text-sm bg-white">
+                            ${selectedOptionsHtml}
+                        </select>
                         <button type="button" onclick="removerPermuta(${p.id})" class="text-red-500 font-bold px-2 hover:bg-red-100 rounded border">X</button>
                     </div>
                 `;
@@ -670,7 +680,7 @@
             const tdStyle = 'border: 1px solid black; padding: 5px; text-align: left; vertical-align: top;';
 
             return `
-                <div style="font-family: Arial, sans-serif; font-size: 11pt;">
+                <div style="font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.3;">
                     
                     <table style="${tableStyle}">
                         <tr><th colspan="4" style="${titleStyle}">SERVIÇO DIÁRIO</th></tr>
@@ -740,7 +750,7 @@
                         <tr>
                             <td style="${tdStyle}">AR-75</td>
                             <td style="${tdStyle}">${document.getElementById('statusAR').value}</td>
-                            <td style="${tdStyle}">${isAROperante ? '13º BBM/CBMMA' : 'Inoperante'}</td>
+                            <td style="${tdStyle}">13º BBM/CBMMA</td>
                             <td style="${tdStyle}">${isAROperante ? (document.getElementById('obsAR').value || 'XXX') : 'XXX'}</td>
                         </tr>
                     </table>
@@ -840,21 +850,46 @@
                 return;
             }
 
-            const divPdf = document.createElement('div');
+            // PREPARAÇÃO PARA O PDF NÃO SAIR EM BRANCO
+            let divPdf = document.getElementById('pdf-container-temp');
+            if(!divPdf) {
+                divPdf = document.createElement('div');
+                divPdf.id = 'pdf-container-temp';
+                // Oculta visualmente mas mantem acessível para a biblioteca "tirar a foto"
+                divPdf.style.position = 'absolute';
+                divPdf.style.left = '0';
+                divPdf.style.top = '0';
+                divPdf.style.width = '800px'; 
+                divPdf.style.padding = '20px';
+                divPdf.style.backgroundColor = '#ffffff';
+                divPdf.style.zIndex = '-1000';
+                divPdf.style.opacity = '0';
+                divPdf.style.pointerEvents = 'none';
+                document.body.appendChild(divPdf);
+            }
+
             divPdf.innerHTML = gerarEstruturaDocumento();
-            divPdf.style.padding = '20px';
-            divPdf.style.width = '800px';
+
+            // GERAR O NOME COM DATA
+            const dataInput = document.getElementById('dataServico').value;
+            let dataFormatada = "";
+            if(dataInput) {
+                const partes = dataInput.split('-'); // [YYYY, MM, DD]
+                dataFormatada = `_${partes[2]}_${partes[1]}_${partes[0]}`;
+            }
 
             const opt = {
               margin:       10,
-              filename:     'Livro_Chefe_Socorro_13BBM.pdf',
+              filename:     `Livro_Chefe_Socorro_13BBM${dataFormatada}.pdf`,
               image:        { type: 'jpeg', quality: 0.98 },
-              html2canvas:  { scale: 2 },
+              html2canvas:  { scale: 2, logging: false },
               jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
             
             html2pdf().set(opt).from(divPdf).save().then(() => {
                 alert("PDF gerado e baixado com sucesso!\n\nAgora você pode clicar em 'Assinar Gov.br', enviar o arquivo lá, e assinar digitalmente.");
+                // Limpa o documento invisível após a foto para não pesar a memória
+                divPdf.innerHTML = '';
             });
         }
 
