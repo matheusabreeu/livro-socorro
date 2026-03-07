@@ -429,7 +429,7 @@
             salvarLocal();
         }
 
-        // Função que resgata todos os militares do serviço ativo para popular os Dropdowns dinâmicos
+        // Função que resgata todos os militares do serviço ativo para popular Dropdowns dinâmicos (Permutas e Quartos)
         function obterEquipeAtiva() {
             const inputs = ['chefeSocorro', 'auxChefe', 'cmtGuarnicao', 'chefeLinha', 'auxLinha', 'motABT'];
             let escalados = [];
@@ -522,21 +522,32 @@
             container.innerHTML = '';
 
             const equipe = obterEquipeAtiva();
+            const funcoesDisponiveis = [
+                "Chefe de Socorro", "Aux. do Chefe de socorro", "Cmt da Guarnição",
+                "Chefe da 1ª Linha", "Aux. da 1ª Linha", "Motorista de ABT", "Operador de Comunicação"
+            ];
 
             permutas.forEach((p) => {
-                // Montar o select do Militar que Entra com base na equipe ativa
+                // Validação do militar substituto
                 let selectValido = equipe.includes(p.entra) || p.entra === '' ? p.entra : ''; 
-                
-                let selectedOptionsHtml = '<option value="">Selecione o Militar da guarnição...</option>';
+                let selectedOptionsHtml = '<option value="">Militar que entra...</option>';
                 equipe.forEach(m => {
                     selectedOptionsHtml += `<option value="${m}" ${selectValido === m ? 'selected' : ''}>${m}</option>`;
                 });
 
+                // Validação das Funções
+                let selectFuncoesHtml = '<option value="">Função...</option>';
+                funcoesDisponiveis.forEach(f => {
+                    selectFuncoesHtml += `<option value="${f}" ${p.funcao === f ? 'selected' : ''}>${f}</option>`;
+                });
+
                 container.innerHTML += `
                     <div class="flex gap-2 bg-gray-50 p-2 rounded items-end">
-                        <input type="text" placeholder="Função" value="${p.funcao}" oninput="atualizarPermuta(${p.id}, 'funcao', this.value)" class="border p-1 rounded w-1/3 text-sm">
-                        <input type="text" placeholder="Sai" list="listaMilitares" value="${p.sai}" oninput="atualizarPermuta(${p.id}, 'sai', this.value)" class="border p-1 rounded w-1/3 text-sm">
-                        <select onchange="atualizarPermuta(${p.id}, 'entra', this.value)" class="border p-1 rounded w-1/3 text-sm bg-white">
+                        <select onchange="atualizarPermuta(${p.id}, 'funcao', this.value)" class="border p-1 rounded w-[30%] text-xs sm:text-sm bg-white">
+                            ${selectFuncoesHtml}
+                        </select>
+                        <input type="text" placeholder="Militar que sai" list="listaMilitares" value="${p.sai}" oninput="atualizarPermuta(${p.id}, 'sai', this.value)" class="border p-1 rounded w-[30%] text-xs sm:text-sm">
+                        <select onchange="atualizarPermuta(${p.id}, 'entra', this.value)" class="border p-1 rounded w-[30%] text-xs sm:text-sm bg-white">
                             ${selectedOptionsHtml}
                         </select>
                         <button type="button" onclick="removerPermuta(${p.id})" class="text-red-500 font-bold px-2 hover:bg-red-100 rounded border">X</button>
@@ -844,52 +855,51 @@
             }
         }
 
+        // NOVA TÉCNICA À PROVA DE FALHAS PARA GERAR O PDF
         function gerarPDF() {
             if(!document.getElementById('livroForm').reportValidity()) {
                 alert("Atenção! Por favor, preencha todos os campos obrigatórios (marcados com um asterisco *) antes de gerar o PDF.");
                 return;
             }
 
-            // PREPARAÇÃO PARA O PDF NÃO SAIR EM BRANCO
-            let divPdf = document.getElementById('pdf-container-temp');
-            if(!divPdf) {
-                divPdf = document.createElement('div');
-                divPdf.id = 'pdf-container-temp';
-                // Oculta visualmente mas mantem acessível para a biblioteca "tirar a foto"
-                divPdf.style.position = 'absolute';
-                divPdf.style.left = '0';
-                divPdf.style.top = '0';
-                divPdf.style.width = '800px'; 
-                divPdf.style.padding = '20px';
-                divPdf.style.backgroundColor = '#ffffff';
-                divPdf.style.zIndex = '-1000';
-                divPdf.style.opacity = '0';
-                divPdf.style.pointerEvents = 'none';
-                document.body.appendChild(divPdf);
-            }
-
+            // Cria um elemento real e joga pro fundo da página (invisível ao olho, mas visível pra biblioteca)
+            const divPdf = document.createElement('div');
             divPdf.innerHTML = gerarEstruturaDocumento();
+            divPdf.style.position = 'absolute';
+            divPdf.style.top = '0';
+            divPdf.style.left = '0';
+            divPdf.style.width = '800px'; 
+            divPdf.style.padding = '20px';
+            divPdf.style.backgroundColor = '#ffffff'; // Garante o fundo branco da folha
+            divPdf.style.color = '#000000';
+            divPdf.style.zIndex = '-9999'; // Joga para o fundo
+            
+            document.body.appendChild(divPdf);
 
-            // GERAR O NOME COM DATA
+            // Resgata e formata a data para colocar no título do arquivo
             const dataInput = document.getElementById('dataServico').value;
             let dataFormatada = "";
             if(dataInput) {
-                const partes = dataInput.split('-'); // [YYYY, MM, DD]
-                dataFormatada = `_${partes[2]}_${partes[1]}_${partes[0]}`;
+                const partes = dataInput.split('-'); // O input entrega [YYYY, MM, DD]
+                dataFormatada = `_${partes[2]}_${partes[1]}_${partes[0]}`; // Fica _DD_MM_YYYY
             }
 
             const opt = {
               margin:       10,
               filename:     `Livro_Chefe_Socorro_13BBM${dataFormatada}.pdf`,
               image:        { type: 'jpeg', quality: 0.98 },
-              html2canvas:  { scale: 2, logging: false },
+              html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
               jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
             
+            // Roda a conversão
             html2pdf().set(opt).from(divPdf).save().then(() => {
+                // Apaga o documento do fundo da página pra não pesar
+                document.body.removeChild(divPdf);
                 alert("PDF gerado e baixado com sucesso!\n\nAgora você pode clicar em 'Assinar Gov.br', enviar o arquivo lá, e assinar digitalmente.");
-                // Limpa o documento invisível após a foto para não pesar a memória
-                divPdf.innerHTML = '';
+            }).catch(err => {
+                document.body.removeChild(divPdf);
+                alert("Ocorreu um erro ao gerar o PDF. Tente novamente.");
             });
         }
 
