@@ -21,6 +21,10 @@
 </head>
 <body class="bg-gray-100 font-sans">
 
+    <div style="display:none;">
+        <img src="https://cbm.ssp.ma.gov.br/wp-content/uploads/2018/01/Corpo-de-Bombeiros-Militar.png" alt="preload">
+    </div>
+
     <div id="print-area" class="hidden print:block print:p-2 bg-white text-black w-full max-w-none"></div>
 
     <div class="p-4 pb-48 print:hidden">
@@ -376,7 +380,7 @@
 
         </div>
     </div> <div class="no-print fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-3 shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.15)] max-w-3xl mx-auto z-50 flex flex-col gap-2">
-        <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm">Gerar Livro e Copiar (SEI)</button>
+        <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm">Gerar Livro e Copiar para o SEI</button>
         
         <div class="flex gap-2 w-full">
             <a href="https://sei.ma.gov.br/" target="_blank" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold text-xs text-center flex items-center justify-center transition shadow-sm leading-tight">Acessar<br>SEI</a>
@@ -687,7 +691,8 @@
             return { textoDia, textoSemana };
         }
 
-        function gerarEstruturaDocumento() {
+        // FUNÇÃO CENTRAL QUE GERA O HTML (Com parâmetro para saber se vai pro PDF ou SEI)
+        function gerarEstruturaDocumento(isPDF = false) {
             const datas = obterTextosData(document.getElementById('dataServico').value);
             const isABTOperante = document.getElementById('statusABT').value === 'Operante';
             const isAROperante = document.getElementById('statusAR').value === 'Operante';
@@ -700,9 +705,22 @@
             const colHeaderStyle = 'border: 1px solid black; padding: 5px; background-color: #f2f2f2; font-weight: bold; text-align: left;';
             const tdStyle = 'border: 1px solid black; padding: 5px; text-align: left; vertical-align: top;';
 
+            let cabecalhoPDF = '';
+            if(isPDF) {
+                cabecalhoPDF = `
+                    <div style="text-align: center; margin-bottom: 20px; font-family: 'Times New Roman', Times, serif; line-height: 1.2;">
+                        <img src="https://cbm.ssp.ma.gov.br/wp-content/uploads/2018/01/Corpo-de-Bombeiros-Militar.png" alt="Logo CBMMA" style="height: 70px; margin-bottom: 10px;">
+                        <div style="font-weight: bold; font-size: 13pt;">ESTADO DO MARANHÃO</div>
+                        <div style="font-size: 12pt;">CORPO DE BOMBEIROS MILITAR</div>
+                        <div style="font-size: 12pt;">COMANDO OPERACIONAL DO CORPO DE BOMBEIROS - ÁREA I</div>
+                        <div style="font-size: 12pt;">13º BATALHÃO DE BOMBEIROS MILITAR</div>
+                    </div>
+                `;
+            }
+
             return `
                 <div style="font-family: Arial, sans-serif; font-size: 11pt; line-height: 1.3;">
-                    
+                    ${cabecalhoPDF}
                     <table style="${tableStyle}">
                         <tr><th colspan="4" style="${titleStyle}">SERVIÇO DIÁRIO</th></tr>
                         <tr>
@@ -850,7 +868,7 @@
                 return;
             }
 
-            const html = gerarEstruturaDocumento();
+            const html = gerarEstruturaDocumento(false); // false = Sem cabeçalho para o SEI
             const outputDiv = document.getElementById('sei-output');
             outputDiv.innerHTML = html;
 
@@ -865,15 +883,14 @@
             }
         }
 
-        // FUNÇÃO NATIVA PERFEITA DE GERAÇÃO DE PDF (SEM BIBLIOTECAS EXTERNAS)
         function gerarPDFNativo() {
             if(!document.getElementById('livroForm').reportValidity()) {
                 alert("Atenção! Por favor, preencha todos os campos obrigatórios (marcados com um asterisco *) antes de gerar o PDF.");
                 return;
             }
 
-            // Injeta o HTML formatado na área de impressão invisível
-            document.getElementById('print-area').innerHTML = gerarEstruturaDocumento();
+            // Injeta o HTML formatado (com Cabeçalho = true) na área de impressão invisível
+            document.getElementById('print-area').innerHTML = gerarEstruturaDocumento(true);
 
             // Muda o título da página rapidamente para que o PDF baixe com o nome correto
             const originalTitle = document.title;
@@ -885,13 +902,15 @@
             }
             document.title = `Livro_Chefe_Socorro_13BBM${dataFormatada}`;
 
-            // Aciona o motor nativo de impressão/PDF do celular ou PC
-            window.print();
-
-            // Devolve o título original ao site logo após a tela de PDF abrir
+            // Pequeno atraso para garantir que a imagem do cabeçalho carregue antes da tela de impressão abrir
             setTimeout(() => {
-                document.title = originalTitle;
-            }, 1000);
+                window.print();
+                
+                // Devolve o título original ao site logo após a tela de PDF abrir
+                setTimeout(() => {
+                    document.title = originalTitle;
+                }, 1000);
+            }, 500);
         }
 
         window.onload = carregarLocal;
