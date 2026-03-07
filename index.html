@@ -14,7 +14,7 @@
                 print-color-adjust: exact;
                 background-color: white;
             }
-            /* Oculta os botões flutuantes na hora do PDF */
+            /* Oculta os botões flutuantes e painéis de instrução na hora do PDF */
             .no-print { display: none !important; }
         }
     </style>
@@ -215,7 +215,7 @@
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div id="blocoMotABT">
                             <label class="block text-sm font-medium text-red-600">Motorista do ABT-34: *</label>
-                            <input type="text" id="motABT" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 border-red-300 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
+                            <input type="text" id="motABT" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
                         </div>
                         <div id="blocoMotAR">
                             <label class="block text-sm font-medium text-gray-700">Motorista do AR-75:</label>
@@ -360,36 +360,43 @@
 
             </form>
 
-            <section class="mt-10 bg-indigo-50 p-5 rounded-lg border border-indigo-200 shadow-sm text-sm text-indigo-900">
+            <section class="mt-10 bg-indigo-50 p-5 rounded-lg border border-indigo-200 shadow-sm text-sm text-indigo-900 no-print">
                 <h3 class="font-bold text-indigo-900 mb-2 text-base">🔄 Sincronizar (Celular ↔ Computador)</h3>
-                <p class="mb-4">Começou a preencher no celular e quer continuar no computador do quartel (ou vice-versa)?</p>
+                <p class="mb-3">Começou a preencher no celular e quer continuar no computador (ou vice-versa)? Siga os passos:</p>
+                <ul class="list-decimal list-inside mb-4 space-y-1 text-xs">
+                    <li>No aparelho onde os dados estão preenchidos, clique em <strong>1. Copiar Dados</strong> e envie o código para você mesmo (ex: WhatsApp).</li>
+                    <li>No outro aparelho, abra este site, clique em <strong>2. Colar Dados</strong> e insira o código.</li>
+                </ul>
                 <div class="flex gap-2">
-                    <button onclick="exportarDados()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded font-bold transition flex-1">1. Copiar Código</button>
-                    <button onclick="importarDados()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded font-bold transition flex-1">2. Colar Código</button>
+                    <button type="button" onclick="exportarDados()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded font-bold transition flex-1 shadow-sm">1. Copiar Dados</button>
+                    <button type="button" onclick="importarDados()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded font-bold transition flex-1 shadow-sm">2. Colar Dados</button>
                 </div>
             </section>
 
-            <section class="mt-6 bg-white p-5 rounded-lg border border-gray-300 shadow-sm text-sm text-gray-800">
+            <section class="mt-6 bg-white p-5 rounded-lg border border-gray-300 shadow-sm text-sm text-gray-800 no-print">
                 <h3 class="font-bold text-gray-900 mb-4 text-base uppercase border-b pb-2">📖 Fluxo de Finalização:</h3>
                 <ul class="space-y-4">
                     <li class="flex items-start">
-                        <span class="mr-2 text-lg">1️⃣</span>
-                        <div>Clique no botão verde <strong class="text-green-700">Gerar Livro e Copiar (SEI)</strong>. O sistema deixará tudo formatado e copiado invisivelmente no seu aparelho.</div>
+                        <span class="mr-2 text-lg">💻</span>
+                        <div><strong>Pelo Computador (Recomendado):</strong> Clique no botão verde <strong class="text-green-700">Gerar Livro e Copiar (SEI)</strong>. Depois, clique em <strong class="text-blue-700">Acessar SEI</strong>, crie um documento em branco no seu processo, cole (Ctrl+V) e assine digitalmente no próprio SEI.</div>
+                    </li>
+                    <li class="flex items-start bg-gray-100 p-3 rounded">
+                        <span class="mr-2 text-lg">📱</span>
+                        <div><strong>Pelo Celular:</strong> A opção de colar texto no SEI não funciona pelo celular. Para finalizar o plantão direto pelo celular, clique no botão cinza <strong class="text-gray-700">Baixar PDF</strong>, assine o documento usando o botão <strong class="text-indigo-700">Assinar Gov.br</strong> e anexe este PDF pronto no seu processo do SEI.</div>
                     </li>
                     <li class="flex items-start">
-                        <span class="mr-2 text-lg">2️⃣</span>
-                        <div>Clique em <strong class="text-blue-700">Acessar SEI</strong>. <br><span class="text-xs text-red-600 font-bold">DICA DE CELULAR:</span> No navegador do celular, ative a opção "Versão para Computador" antes de abrir o SEI. Crie um documento em branco no seu processo e apenas Cole (Ctrl+V). Assine digitalmente por lá.</div>
-                    </li>
-                    <li class="flex items-start bg-gray-100 p-2 rounded">
-                        <span class="mr-2 text-lg">📄</span>
-                        <div><strong>Opção Alternativa (PDF):</strong> Se preferir ou precisar, você também pode clicar em <strong class="text-gray-700">Baixar PDF</strong> e usar o botão <strong class="text-indigo-700">Assinar Gov.br</strong> para enviar e assinar o documento digitalmente.</div>
+                        <span class="mr-2 text-lg">⚠️</span>
+                        <div>Clique no botão vermelho <strong class="text-red-700">Apagar Tudo</strong>: Use este botão <strong>apenas</strong> na hora de passar o serviço para limpar a tela e iniciar um plantão zerado.</div>
                     </li>
                 </ul>
             </section>
 
         </div>
     </div> <div class="no-print fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-3 shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.15)] max-w-3xl mx-auto z-50 flex flex-col gap-2">
-        <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm">Gerar Livro e Copiar (SEI)</button>
+        <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm flex flex-col items-center justify-center">
+            <span>Gerar Livro e Copiar (SEI)</span>
+            <span class="text-[10px] font-normal normal-case mt-0.5 opacity-90 tracking-normal">(Funciona apenas no computador)</span>
+        </button>
         
         <div class="flex gap-2 w-full">
             <a href="https://sei.ma.gov.br/" target="_blank" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold text-xs text-center flex items-center justify-center transition shadow-sm leading-tight">Acessar<br>SEI</a>
@@ -488,6 +495,7 @@
             renderizarPermutas();
             salvarLocal();
         });
+
 
         function adicionarQuartoHora() {
             const id = Date.now();
@@ -679,33 +687,32 @@
             }
         }
 
-        // --- EXPORTAR E IMPORTAR (CELULAR <-> PC) ---
+        // --- FUNÇÕES DE SINCRONIZAÇÃO (MOBILE -> PC) ---
         function exportarDados() {
             const dados = localStorage.getItem('livroChefeSocorro');
-            if (!dados) {
+            if (!dados || dados === '{}') {
                 alert("O formulário está vazio. Não há dados para transferir.");
                 return;
             }
-            // Base64 seguro para caracteres especiais
             const codigo = btoa(unescape(encodeURIComponent(dados))); 
             navigator.clipboard.writeText(codigo).then(() => {
-                alert("✅ CÓDIGO COPIADO COM SUCESSO!\n\nAgora mande esse código para o seu WhatsApp Web. Depois, abra o sistema no computador e clique em '2. Colar Código'.");
+                alert("✅ DADOS COPIADOS COM SUCESSO!\n\nEnvie este código para você mesmo (ex: WhatsApp). Depois, abra o site no computador e clique em '2. Colar Dados'.");
             }).catch(() => {
-                alert("Erro ao copiar. Tente novamente.");
+                alert("Erro ao copiar. Tente selecionar o texto manualmente se o erro persistir.");
             });
         }
 
         function importarDados() {
-            const codigo = prompt("Cole aqui o código gerado no seu celular:");
+            const codigo = prompt("Cole aqui o código gerado no outro aparelho:");
             if (!codigo) return;
             try {
                 const dados = decodeURIComponent(escape(atob(codigo)));
-                JSON.parse(dados); // Valida se é um JSON válido
+                JSON.parse(dados); // Verifica se não está corrompido
                 localStorage.setItem('livroChefeSocorro', dados);
-                alert("✅ DADOS RECEBIDOS!\nA página será atualizada com as informações do seu celular.");
+                alert("✅ DADOS RECEBIDOS!\nA página será atualizada com as informações inseridas.");
                 location.reload();
             } catch(e) {
-                alert("❌ Erro: Código inválido ou incompleto. Verifique se você copiou todo o texto gerado.");
+                alert("❌ Erro: Código inválido ou incompleto. Verifique se você colou o texto inteiro gerado.");
             }
         }
 
@@ -729,7 +736,6 @@
             return { textoDia, textoSemana };
         }
 
-        // FUNÇÃO CENTRAL QUE GERA O HTML (Com parâmetro para saber se vai pro PDF ou SEI)
         function gerarEstruturaDocumento(isPDF = false) {
             const datas = obterTextosData(document.getElementById('dataServico').value);
             const isABTOperante = document.getElementById('statusABT').value === 'Operante';
@@ -914,7 +920,7 @@
                 const blob = new Blob([html], { type: 'text/html' });
                 const clipboardItem = new window.ClipboardItem({ 'text/html': blob });
                 navigator.clipboard.write([clipboardItem]).then(() => {
-                    alert("SUCESSO! ✅ \nO Livro foi gerado e copiado para a área de transferência.\n\nPróximos passos:\n1. Clique em 'Acessar SEI'.\n2. Crie um documento em branco no seu processo.\n3. COLE (Ctrl+V ou opção 'Colar' do celular) o texto na página.\nAs tabelas aparecerão perfeitamente formatadas!");
+                    alert("SUCESSO! ✅ \nO Livro foi gerado e copiado para a área de transferência.\n\nPróximos passos:\n1. Vá no SEI e crie um documento em branco.\n2. COLE o texto na página.\nAs tabelas aparecerão formatadas.");
                 });
             } catch (err) {
                 alert('Erro ao copiar. Tente selecionar o texto manualmente se o seu navegador não suportar a cópia automática.');
