@@ -124,11 +124,12 @@
             <p class="text-xs font-bold text-gray-400 mt-1 mb-4 uppercase tracking-wider">Desenvolvido pelo 3º SGT BM F Abreu</p>
             
             <div class="bg-yellow-50 text-left p-5 rounded-md border-l-4 border-yellow-400 shadow-sm text-sm text-gray-800">
-                <p class="text-base mb-2"><strong>Bem-vindo ao sistema do Livro de Socorro!</strong></p>
-                <p class="mb-2">Preencha as informações do seu plantão. <strong>Tudo fica salvo automaticamente no seu celular ou computador</strong>, permitindo que o livro seja preenchido aos poucos no decorrer do serviço, sem perder os dados se fechar a aba.</p>
-                <p class="mb-3">A prioridade é o SEI. Ao final do plantão, o sistema formata as tabelas e deixa tudo pronto para ser colado lá. Em caso de instabilidade no SEI, incluímos a opção de Baixar PDF e assinar pelo portal Gov.br.</p>
+                <p class="text-base mb-2"><strong>Bem-vindo ao sistema de geração do Livro de Socorro.</strong></p>
+                <p class="mb-2">Preencha as informações do seu plantão abaixo. <strong>As informações ficam salvas automaticamente no seu navegador</strong>, permitindo que o livro seja preenchido e alterado aos poucos no decorrer do serviço, mesmo se você fechar a página.</p>
+                <p class="mb-2">Ao final, o sistema organizará os dados, criará as tabelas no padrão oficial e deixará o documento pronto para ser colado no SEI com apenas um clique.</p>
+                <p class="mb-3">Também é possível gerar o livro em PDF e assinar pelo Gov.br, caso necessário.</p>
                 <div class="bg-yellow-100 p-3 rounded border border-yellow-200 text-yellow-900">
-                    <span class="font-bold">Dúvidas sobre o sistema?</span> <a href="#" class="underline font-bold text-blue-700 hover:text-blue-900 cursor-not-allowed" title="O vídeo será adicionado em breve">Assistir vídeo tutorial (Em breve)</a>
+                    <span class="font-bold">Em caso de dúvidas:</span> <a href="#" class="underline font-bold text-blue-700 hover:text-blue-900 cursor-not-allowed" title="O vídeo será adicionado em breve">Assistir vídeo tutorial (Disponível em breve)</a>
                 </div>
             </div>
         </div>
@@ -341,19 +342,27 @@
         </form>
 
         <section class="mt-10 bg-white p-5 rounded-lg border border-gray-300 shadow-sm text-sm text-gray-800">
-            <h3 class="font-bold text-gray-900 mb-4 text-base uppercase border-b pb-2">📖 Fluxo de Finalização:</h3>
+            <h3 class="font-bold text-gray-900 mb-4 text-base uppercase border-b pb-2">📖 Como utilizar o sistema:</h3>
             <ul class="space-y-4">
                 <li class="flex items-start">
-                    <span class="mr-2 text-lg">1️⃣</span>
-                    <div>Clique no botão verde <strong class="text-green-700">Gerar Livro e Copiar (SEI)</strong>. O sistema deixará tudo formatado e copiado invisivelmente no seu aparelho.</div>
+                    <span class="mr-2 text-lg">📝</span>
+                    <div><strong>Preencha os dados:</strong> Tudo fica salvo no seu celular automaticamente. Se a internet cair ou você fechar o site para atender uma ocorrência, não se preocupe, os dados continuam aqui quando voltar.</div>
                 </li>
                 <li class="flex items-start">
-                    <span class="mr-2 text-lg">2️⃣</span>
-                    <div>Clique em <strong class="text-blue-700">Acessar SEI</strong>. Crie um documento em branco no seu processo e apenas Cole (Ctrl+V). Assine digitalmente por lá.</div>
+                    <span class="mr-2 text-lg">📋</span>
+                    <div>Clique no botão verde <strong class="text-green-700">Gerar Livro e Copiar (SEI)</strong>: O sistema organizará todas as tabelas e deixará o texto copiado no seu aparelho.</div>
                 </li>
-                <li class="flex items-start bg-gray-100 p-2 rounded">
+                <li class="flex items-start">
+                    <span class="mr-2 text-lg">🌐</span>
+                    <div>Clique no botão azul <strong class="text-blue-700">Acessar SEI</strong>: O site do SEI vai abrir em outra aba. Crie um documento em branco no seu processo e cole as informações copiadas.</div>
+                </li>
+                <li class="flex items-start">
+                    <span class="mr-2 text-lg">📄</span>
+                    <div><strong>Assinatura Gov.br:</strong> Caso seja necessário, você também pode clicar em <strong class="text-gray-700">Baixar PDF</strong> e usar o botão <strong class="text-indigo-700">Assinar Gov.br</strong> para assinar o documento digitalmente.</div>
+                </li>
+                <li class="flex items-start">
                     <span class="mr-2 text-lg">⚠️</span>
-                    <div><strong>Plano B (Fora do Ar):</strong> Se o SEI der erro para assinar, clique em <strong class="text-gray-700">Baixar PDF</strong> e, em seguida, em <strong class="text-indigo-700">Assinar no Gov.br</strong>. Faça o upload do PDF baixado, assine e anexe o documento final no SEI quando voltar.</div>
+                    <div>Clique no botão vermelho <strong class="text-red-700">Apagar Tudo</strong>: Use este botão <strong>apenas</strong> na hora que passar o serviço e quiser limpar a tela para a próxima guarnição.</div>
                 </li>
             </ul>
         </section>
@@ -361,7 +370,7 @@
     </div>
 
     <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-3 shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.15)] max-w-3xl mx-auto z-50 flex flex-col gap-2">
-        <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm">Gerar Livro e Copiar (SEI)</button>
+        <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm">Gerar Livro e Copiar para o SEI</button>
         
         <div class="flex gap-2 w-full">
             <a href="https://sei.ma.gov.br/" target="_blank" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold text-xs text-center flex items-center justify-center transition shadow-sm leading-tight">Acessar<br>SEI</a>
@@ -647,7 +656,6 @@
             return { textoDia, textoSemana };
         }
 
-        // FUNÇÃO QUE GERA A ESTRUTURA HTML DO DOCUMENTO (USADA PELO SEI E PELO PDF)
         function gerarEstruturaDocumento() {
             const datas = obterTextosData(document.getElementById('dataServico').value);
             const isABTOperante = document.getElementById('statusABT').value === 'Operante';
@@ -826,18 +834,16 @@
             }
         }
 
-        // FUNÇÃO PARA GERAR PDF (NOVA)
         function gerarPDF() {
             if(!document.getElementById('livroForm').reportValidity()) {
                 alert("Atenção! Por favor, preencha todos os campos obrigatórios (marcados com um asterisco *) antes de gerar o PDF.");
                 return;
             }
 
-            // Cria um container invisível para gerar o PDF
             const divPdf = document.createElement('div');
             divPdf.innerHTML = gerarEstruturaDocumento();
             divPdf.style.padding = '20px';
-            divPdf.style.width = '800px'; // Força largura padrão A4 para não quebrar a tabela
+            divPdf.style.width = '800px';
 
             const opt = {
               margin:       10,
@@ -847,7 +853,6 @@
               jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
             
-            // Chama a biblioteca para converter e baixar
             html2pdf().set(opt).from(divPdf).save().then(() => {
                 alert("PDF gerado e baixado com sucesso!\n\nAgora você pode clicar em 'Assinar Gov.br', enviar o arquivo lá, e assinar digitalmente.");
             });
