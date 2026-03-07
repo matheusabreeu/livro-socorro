@@ -6,8 +6,9 @@
     <title>LIVRO DO CHEFE DE SOCORRO DO 13º BBM</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚒</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
-<body class="bg-gray-100 p-4 font-sans pb-40">
+<body class="bg-gray-100 p-4 font-sans pb-48">
 
     <datalist id="listaMilitares">
         <option value="1º TEN QOEBM MARCIO">
@@ -117,16 +118,17 @@
     <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md border-t-4 border-red-700">
         
         <div class="text-center mb-6">
-            <div class="text-6xl mb-3">🚒</div>
+            <div class="text-6xl mb-2">🚒</div>
             <h1 class="text-2xl font-bold text-red-700 uppercase">Livro do Chefe de Socorro</h1>
-            <h2 class="text-lg font-bold text-gray-700 mb-4">13º BBM / CBMMA</h2>
+            <h2 class="text-lg font-bold text-gray-700">13º BBM / CBMMA</h2>
+            <p class="text-xs font-bold text-gray-400 mt-1 mb-4 uppercase tracking-wider">Desenvolvido pelo 3º SGT BM F Abreu</p>
             
             <div class="bg-yellow-50 text-left p-5 rounded-md border-l-4 border-yellow-400 shadow-sm text-sm text-gray-800">
-                <p class="text-base mb-2"><strong>Bem-vindo ao sistema de geração do Livro de Socorro.</strong></p>
-                <p class="mb-2">Preencha as informações do seu plantão abaixo. <strong>As informações ficam salvas automaticamente no seu navegador</strong>, permitindo que o livro seja preenchido e alterado aos poucos no decorrer do serviço, mesmo se você fechar a página.</p>
-                <p class="mb-3">Ao final, o sistema organizará os dados, criará as tabelas no padrão oficial e deixará o documento pronto para ser colado no SEI com apenas um clique.</p>
+                <p class="text-base mb-2"><strong>Bem-vindo ao sistema do Livro de Socorro!</strong></p>
+                <p class="mb-2">Preencha as informações do seu plantão. <strong>Tudo fica salvo automaticamente no seu celular ou computador</strong>, permitindo que o livro seja preenchido aos poucos no decorrer do serviço, sem perder os dados se fechar a aba.</p>
+                <p class="mb-3">A prioridade é o SEI. Ao final do plantão, o sistema formata as tabelas e deixa tudo pronto para ser colado lá. Em caso de instabilidade no SEI, incluímos a opção de Baixar PDF e assinar pelo portal Gov.br.</p>
                 <div class="bg-yellow-100 p-3 rounded border border-yellow-200 text-yellow-900">
-                    <span class="font-bold">Em caso de dúvidas sobre como usar:</span> <a href="#" class="underline font-bold text-blue-700 hover:text-blue-900 cursor-not-allowed" title="O vídeo será adicionado em breve">Assistir vídeo tutorial (Disponível em breve)</a>
+                    <span class="font-bold">Dúvidas sobre o sistema?</span> <a href="#" class="underline font-bold text-blue-700 hover:text-blue-900 cursor-not-allowed" title="O vídeo será adicionado em breve">Assistir vídeo tutorial (Em breve)</a>
                 </div>
             </div>
         </div>
@@ -164,7 +166,7 @@
 
             <section class="border-b pb-4">
                 <h2 class="text-xl font-semibold mb-3">Guarnição de Serviço</h2>
-                <p class="text-xs text-gray-500 mb-4 bg-gray-100 p-2 rounded border border-gray-200">Dica: Deixe em branco os campos onde não houver militar escalado. Eles serão substituídos automaticamente por "XXX" no documento do SEI.</p>
+                <p class="text-xs text-gray-500 mb-4 bg-gray-100 p-2 rounded border border-gray-200">Dica: Deixe em branco os campos onde não houver militar escalado. Eles serão substituídos automaticamente por "XXX" no documento do SEI ou PDF.</p>
                 
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
@@ -193,7 +195,7 @@
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div id="blocoMotABT">
                         <label class="block text-sm font-medium text-red-600">Motorista do ABT-34: *</label>
-                        <input type="text" id="motABT" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
+                        <input type="text" id="motABT" list="listaPracas" class="mt-1 block w-full rounded-md border p-2 border-red-300 guarnicao-input" placeholder="Ex: 3º SGT BM 123/13 Fulano de Tal">
                     </div>
                     <div id="blocoMotAR">
                         <label class="block text-sm font-medium text-gray-700">Motorista do AR-75:</label>
@@ -263,7 +265,7 @@
                             <input type="number" id="kmFinABT" placeholder="Ex: 84133" class="border p-2 rounded w-full">
                         </div>
                         <div class="col-span-2">
-                            <label class="block text-xs font-medium text-gray-500">Abastecimento (L):</label>
+                            <label class="block text-xs font-medium text-gray-700">Abastecimento (L):</label>
                             <input type="number" id="abastABT" placeholder="" class="border p-2 rounded w-full bg-white">
                         </div>
                     </div>
@@ -293,7 +295,7 @@
                             <input type="number" id="kmFinAR" placeholder="Ex: 52693" class="border p-2 rounded w-full">
                         </div>
                         <div class="col-span-2">
-                            <label class="block text-xs font-medium text-gray-500">Abastecimento (L):</label>
+                            <label class="block text-xs font-medium text-gray-700">Abastecimento (L):</label>
                             <input type="number" id="abastAR" placeholder="" class="border p-2 rounded w-full bg-white">
                         </div>
                     </div>
@@ -325,7 +327,7 @@
                         <input type="text" id="substituto" list="listaChefes" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 2º TEN QOCBM FULANO DE TAL" required>
                     </div>
 
-                    <div class="sm:col-span-2 mt-4">
+                    <div class="sm:col-span-2 mt-4 border-t pt-4">
                         <label class="block text-sm font-medium text-red-600">Seu Nome Completo: *</label>
                         <input type="text" id="nomeAtual" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: João Batista da Silva" required>
                     </div>
@@ -339,33 +341,34 @@
         </form>
 
         <section class="mt-10 bg-white p-5 rounded-lg border border-gray-300 shadow-sm text-sm text-gray-800">
-            <h3 class="font-bold text-gray-900 mb-4 text-base uppercase border-b pb-2">📖 Como utilizar o sistema:</h3>
+            <h3 class="font-bold text-gray-900 mb-4 text-base uppercase border-b pb-2">📖 Fluxo de Finalização:</h3>
             <ul class="space-y-4">
                 <li class="flex items-start">
-                    <span class="mr-2 text-lg">📝</span>
-                    <div><strong>Preencha os dados:</strong> Tudo fica salvo no seu celular automaticamente. Se a internet cair ou você precisar fechar o site para atender uma ocorrência, não se preocupe, os dados continuam aqui quando voltar.</div>
+                    <span class="mr-2 text-lg">1️⃣</span>
+                    <div>Clique no botão verde <strong class="text-green-700">Gerar Livro e Copiar (SEI)</strong>. O sistema deixará tudo formatado e copiado invisivelmente no seu aparelho.</div>
                 </li>
                 <li class="flex items-start">
-                    <span class="mr-2 text-lg">📋</span>
-                    <div>Clique no botão verde <strong class="text-green-700">Copiar Tudo para o SEI</strong>: O sistema organizará todas as tabelas e deixará o texto copiado no seu celular (uma mensagem de sucesso aparecerá na tela).</div>
+                    <span class="mr-2 text-lg">2️⃣</span>
+                    <div>Clique em <strong class="text-blue-700">Acessar SEI</strong>. Crie um documento em branco no seu processo e apenas Cole (Ctrl+V). Assine digitalmente por lá.</div>
                 </li>
-                <li class="flex items-start">
-                    <span class="mr-2 text-lg">🌐</span>
-                    <div>Clique no botão azul <strong class="text-blue-700">Acessar Sistema SEI</strong>: O site do SEI vai abrir em outra aba. Crie um documento em branco no seu processo e cole as informações copiadas.</div>
-                </li>
-                <li class="flex items-start">
+                <li class="flex items-start bg-gray-100 p-2 rounded">
                     <span class="mr-2 text-lg">⚠️</span>
-                    <div>Clique no botão vermelho <strong class="text-red-700">Apagar Tudo</strong>: Use este botão <strong>apenas</strong> na hora que passar o serviço e quiser limpar a tela para a próxima guarnição.</div>
+                    <div><strong>Plano B (Fora do Ar):</strong> Se o SEI der erro para assinar, clique em <strong class="text-gray-700">Baixar PDF</strong> e, em seguida, em <strong class="text-indigo-700">Assinar no Gov.br</strong>. Faça o upload do PDF baixado, assine e anexe o documento final no SEI quando voltar.</div>
                 </li>
             </ul>
         </section>
 
     </div>
 
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-3 flex flex-wrap justify-between gap-2 shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.15)] max-w-3xl mx-auto z-50">
-        <button onclick="gerarECopiarSEI()" class="bg-green-600 hover:bg-green-700 text-white px-2 py-3 rounded-lg font-bold text-xs sm:text-sm flex-grow transition uppercase tracking-wide">Copiar Tudo<br>para o SEI</button>
-        <a href="https://sei.ma.gov.br/" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-3 rounded-lg font-bold text-xs sm:text-sm w-[28%] sm:w-[25%] text-center transition flex items-center justify-center leading-tight">Acessar<br>Sistema SEI</a>
-        <button onclick="limparDados()" class="bg-red-600 hover:bg-red-700 text-white px-2 py-3 rounded-lg font-bold text-xs sm:text-sm w-[25%] sm:w-[22%] transition leading-tight">Apagar<br>Tudo</button>
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-300 p-3 shadow-[0_-4px_10px_-1px_rgba(0,0,0,0.15)] max-w-3xl mx-auto z-50 flex flex-col gap-2">
+        <button onclick="gerarECopiarSEI()" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-sm sm:text-base uppercase tracking-wide transition shadow-sm">Gerar Livro e Copiar (SEI)</button>
+        
+        <div class="flex gap-2 w-full">
+            <a href="https://sei.ma.gov.br/" target="_blank" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold text-xs text-center flex items-center justify-center transition shadow-sm leading-tight">Acessar<br>SEI</a>
+            <button onclick="gerarPDF()" class="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 rounded-lg font-bold text-xs text-center transition shadow-sm leading-tight">Baixar<br>PDF</button>
+            <a href="http://assinador.iti.br/" target="_blank" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-bold text-xs text-center flex items-center justify-center transition shadow-sm leading-tight">Assinar<br>Gov.br</a>
+            <button onclick="limparDados()" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg font-bold text-xs text-center transition shadow-sm leading-tight">Apagar<br>Tudo</button>
+        </div>
     </div>
 
     <div id="sei-output" style="display: none;"></div>
@@ -644,12 +647,8 @@
             return { textoDia, textoSemana };
         }
 
-        function gerarECopiarSEI() {
-            if(!document.getElementById('livroForm').reportValidity()) {
-                alert("Atenção! Por favor, preencha todos os campos obrigatórios (marcados com um asterisco *) antes de copiar o documento.");
-                return;
-            }
-
+        // FUNÇÃO QUE GERA A ESTRUTURA HTML DO DOCUMENTO (USADA PELO SEI E PELO PDF)
+        function gerarEstruturaDocumento() {
             const datas = obterTextosData(document.getElementById('dataServico').value);
             const isABTOperante = document.getElementById('statusABT').value === 'Operante';
             const isAROperante = document.getElementById('statusAR').value === 'Operante';
@@ -662,11 +661,11 @@
             const colHeaderStyle = 'border: 1px solid black; padding: 5px; background-color: #f2f2f2; font-weight: bold; text-align: left;';
             const tdStyle = 'border: 1px solid black; padding: 5px; text-align: left; vertical-align: top;';
 
-            let html = `
+            return `
                 <div style="font-family: Arial, sans-serif; font-size: 11pt;">
                     
                     <table style="${tableStyle}">
-                        <tr><th colspan="4" style="${titleStyle}">I - SERVIÇO DIÁRIO</th></tr>
+                        <tr><th colspan="4" style="${titleStyle}">SERVIÇO DIÁRIO</th></tr>
                         <tr>
                             <td style="${tdStyle} font-weight: bold; width: 15%;">Data:</td>
                             <td style="${tdStyle} width: 35%;">${datas.textoDia}</td>
@@ -676,7 +675,7 @@
                     </table>
 
                     <table style="${tableStyle}">
-                        <tr><th colspan="2" style="${titleStyle}">II - GUARNIÇÃO DE SERVIÇO DAS VTR'S</th></tr>
+                        <tr><th colspan="2" style="${titleStyle}">GUARNIÇÃO DE SERVIÇO DAS VTR'S</th></tr>
                         <tr><td style="${tdStyle} font-weight: bold; width: 30%;">Chefe de Socorro:</td><td style="${tdStyle}">${document.getElementById('chefeSocorro').value || 'XXX'}</td></tr>
                         <tr><td style="${tdStyle} font-weight: bold;">Aux. do chefe de Socorro:</td><td style="${tdStyle}">${document.getElementById('auxChefe').value || 'XXX'}</td></tr>
                         <tr><td style="${tdStyle} font-weight: bold;">Cmt da Guarnição:</td><td style="${tdStyle}">${document.getElementById('cmtGuarnicao').value || 'XXX'}</td></tr>
@@ -688,12 +687,12 @@
                     </table>
 
                     <table style="${tableStyle}">
-                        <tr><th colspan="2" style="${titleStyle}">V - SERVIÇO INTERNO</th></tr>
+                        <tr><th colspan="2" style="${titleStyle}">SERVIÇO INTERNO</th></tr>
                         <tr><td style="${tdStyle} font-weight: bold; width: 30%;">Operador de Comunicação:</td><td style="${tdStyle}">${document.getElementById('operadorCom').value || 'XXX'}</td></tr>
                     </table>
 
                     <table style="${tableStyle}">
-                        <tr><th colspan="3" style="${titleStyle}">VI - PERMUTA DE SERVIÇO</th></tr>
+                        <tr><th colspan="3" style="${titleStyle}">PERMUTA DE SERVIÇO</th></tr>
                         <tr>
                             <th style="${colHeaderStyle}">FUNÇÃO:</th>
                             <th style="${colHeaderStyle}">SAI (SUBSTITUÍDO):</th>
@@ -703,7 +702,7 @@
                     </table>
 
                     <table style="${tableStyle}">
-                        <tr><th colspan="3" style="${titleStyle}">VII - ARMAMENTO</th></tr>
+                        <tr><th colspan="3" style="${titleStyle}">ARMAMENTO</th></tr>
                         <tr>
                             <th style="${colHeaderStyle}">ESPECIFICAÇÃO:</th>
                             <th style="${colHeaderStyle}">SITUAÇÃO:</th>
@@ -717,7 +716,7 @@
                     </table>
 
                     <table style="${tableStyle}">
-                        <tr><th colspan="4" style="${titleStyle}">VIII - VIATURAS</th></tr>
+                        <tr><th colspan="4" style="${titleStyle}">VIATURAS</th></tr>
                         <tr>
                             <th style="${colHeaderStyle}">VTR:</th>
                             <th style="${colHeaderStyle}">SITUAÇÃO:</th>
@@ -739,7 +738,7 @@
                     </table>
 
                     <table style="${tableStyle}">
-                        <tr><th colspan="6" style="${titleStyle}">IX - ABASTECIMENTO DE COMBUSTÍVEL DAS VTRS</th></tr>
+                        <tr><th colspan="6" style="${titleStyle}">ABASTECIMENTO DE COMBUSTÍVEL DAS VTRS</th></tr>
                         <tr>
                             <th style="${colHeaderStyle}">VTR:</th>
                             <th style="${colHeaderStyle}">COMB. INICIAL:</th>
@@ -754,7 +753,7 @@
                             <td style="${tdStyle}">${isABTOperante ? (document.getElementById('combFinABT').value || 'XXX') : 'XXX'}</td>
                             <td style="${tdStyle}">${isABTOperante ? (document.getElementById('kmIniABT').value || 'XXX') : 'XXX'}</td>
                             <td style="${tdStyle}">${isABTOperante ? (document.getElementById('kmFinABT').value || 'XXX') : 'XXX'}</td>
-                            <td style="${tdStyle}">${isABTOperante ? (document.getElementById('abastABT').value || 'XXX') : 'XXX'}</td>
+                            <td style="${tdStyle}">${isABTOperante ? (document.getElementById('abastABT').value || '') : 'XXX'}</td>
                         </tr>
                         <tr>
                             <td style="${tdStyle}">AR-75</td>
@@ -762,12 +761,12 @@
                             <td style="${tdStyle}">${isAROperante ? (document.getElementById('combFinAR').value || 'XXX') : 'XXX'}</td>
                             <td style="${tdStyle}">${isAROperante ? (document.getElementById('kmIniAR').value || 'XXX') : 'XXX'}</td>
                             <td style="${tdStyle}">${isAROperante ? (document.getElementById('kmFinAR').value || 'XXX') : 'XXX'}</td>
-                            <td style="${tdStyle}">${isAROperante ? (document.getElementById('abastAR').value || 'XXX') : 'XXX'}</td>
+                            <td style="${tdStyle}">${isAROperante ? (document.getElementById('abastAR').value || '') : 'XXX'}</td>
                         </tr>
                     </table>
 
                     <table style="${tableStyle}">
-                        <tr><th colspan="2" style="${titleStyle}">X - QUARTO DE HORA/PERMANÊNCIA</th></tr>
+                        <tr><th colspan="2" style="${titleStyle}">QUARTO DE HORA / PERMANÊNCIA</th></tr>
                         <tr>
                             <th style="${colHeaderStyle}">HORÁRIO:</th>
                             <th style="${colHeaderStyle}">MILITAR:</th>
@@ -776,7 +775,7 @@
                     </table>
 
                     <table style="${tableStyle}">
-                        <tr><th colspan="4" style="${titleStyle}">XI - OCORRÊNCIAS</th></tr>
+                        <tr><th colspan="4" style="${titleStyle}">OCORRÊNCIAS</th></tr>
                         <tr>
                             <th style="${colHeaderStyle}">Natureza da Ocorrência:</th>
                             <th style="${colHeaderStyle}">Endereço/Local:</th>
@@ -787,12 +786,12 @@
                     </table>
 
                     <table style="${tableStyle}">
-                        <tr><th style="${titleStyle}">XII - ALTERAÇÕES</th></tr>
+                        <tr><th style="${titleStyle}">ALTERAÇÕES</th></tr>
                         <tr><td style="${tdStyle}">${document.getElementById('alteracoes').value.replace(/\n/g, '<br>') || 'Não Houve'}</td></tr>
                     </table>
 
                     <table style="${tableStyle}">
-                        <tr><th style="${titleStyle}">XIII - PASSAGEM DE SERVIÇO</th></tr>
+                        <tr><th style="${titleStyle}">PASSAGEM DE SERVIÇO</th></tr>
                         <tr>
                             <td style="${tdStyle}">
                                 <p>Fiz ao meu substituto legal, o senhor(a), <strong>${document.getElementById('substituto').value || 'XXX'}</strong>, a quem transmiti todas as ordens em vigor, além do material carga do Chefe de Socorro.</p>
@@ -802,10 +801,17 @@
                             </td>
                         </tr>
                     </table>
-
                 </div>
             `;
+        }
 
+        function gerarECopiarSEI() {
+            if(!document.getElementById('livroForm').reportValidity()) {
+                alert("Atenção! Por favor, preencha todos os campos obrigatórios (marcados com um asterisco *) antes de copiar o documento.");
+                return;
+            }
+
+            const html = gerarEstruturaDocumento();
             const outputDiv = document.getElementById('sei-output');
             outputDiv.innerHTML = html;
 
@@ -813,11 +819,38 @@
                 const blob = new Blob([html], { type: 'text/html' });
                 const clipboardItem = new window.ClipboardItem({ 'text/html': blob });
                 navigator.clipboard.write([clipboardItem]).then(() => {
-                    alert('SUCESSO! ✅ \nO documento formatado foi copiado e está pronto. \n\nAgora é só clicar em "Acessar Sistema SEI" e colar na página em branco do seu processo.');
+                    alert("SUCESSO! ✅ \nO Livro foi gerado e copiado para a área de transferência.\n\nPróximos passos:\n1. Clique em 'Acessar SEI'.\n2. Crie um documento em branco no seu processo.\n3. COLE (Ctrl+V ou opção 'Colar' do celular) o texto na página.\nAs tabelas aparecerão perfeitamente formatadas!");
                 });
             } catch (err) {
                 alert('Erro ao copiar. Tente selecionar o texto manualmente se o seu navegador não suportar a cópia automática.');
             }
+        }
+
+        // FUNÇÃO PARA GERAR PDF (NOVA)
+        function gerarPDF() {
+            if(!document.getElementById('livroForm').reportValidity()) {
+                alert("Atenção! Por favor, preencha todos os campos obrigatórios (marcados com um asterisco *) antes de gerar o PDF.");
+                return;
+            }
+
+            // Cria um container invisível para gerar o PDF
+            const divPdf = document.createElement('div');
+            divPdf.innerHTML = gerarEstruturaDocumento();
+            divPdf.style.padding = '20px';
+            divPdf.style.width = '800px'; // Força largura padrão A4 para não quebrar a tabela
+
+            const opt = {
+              margin:       10,
+              filename:     'Livro_Chefe_Socorro_13BBM.pdf',
+              image:        { type: 'jpeg', quality: 0.98 },
+              html2canvas:  { scale: 2 },
+              jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            // Chama a biblioteca para converter e baixar
+            html2pdf().set(opt).from(divPdf).save().then(() => {
+                alert("PDF gerado e baixado com sucesso!\n\nAgora você pode clicar em 'Assinar Gov.br', enviar o arquivo lá, e assinar digitalmente.");
+            });
         }
 
         window.onload = carregarLocal;
