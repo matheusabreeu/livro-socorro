@@ -8,11 +8,41 @@
 </head>
 <body class="bg-gray-100 p-4 font-sans pb-24">
 
+    <datalist id="listaMilitares">
+        <option value="ST QPBM Wadeilson">
+        <option value="1º SGT QPBM Guilhon">
+        <option value="3º SGT QPBM Gustavo">
+        <option value="3º SGT QPBM Matias">
+        <option value="CB BM Silva">
+        <option value="SD BM Oliveira">
+    </datalist>
+
     <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <h1 class="text-2xl font-bold text-center mb-6 text-red-700">LIVRO DO CHEFE DE SOCORRO</h1>
         
         <form id="livroForm" class="space-y-6">
             
+            <section class="border-b pb-4 bg-red-50 p-4 rounded-lg">
+                <h2 class="text-lg font-semibold mb-3 text-red-800">Status Operacional das Viaturas</h2>
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">ABT-34</label>
+                        <select id="statusABT" class="mt-1 block w-full rounded-md border p-2 bg-white font-bold text-green-700" onchange="atualizarVisibilidadeVTRs()">
+                            <option value="Operante">Operante</option>
+                            <option value="Baixada">Baixada / Indisponível</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">AR-75</label>
+                        <select id="statusAR" class="mt-1 block w-full rounded-md border p-2 bg-white font-bold text-green-700" onchange="atualizarVisibilidadeVTRs()">
+                            <option value="Operante">Operante</option>
+                            <option value="Baixada">Baixada / Emprestada</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-2">* Viaturas baixadas ou emprestadas terão seus campos preenchidos com XXX automaticamente no documento final.</p>
+            </section>
+
             <section class="border-b pb-4">
                 <h2 class="text-xl font-semibold mb-3">I - Serviço Diário</h2>
                 <div>
@@ -26,35 +56,35 @@
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
                         <label class="block text-sm font-medium">Chefe de Socorro *</label>
-                        <input type="text" id="chefeSocorro" class="mt-1 block w-full rounded-md border p-2" required>
+                        <input type="text" id="chefeSocorro" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 1º TEN BM Silva" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium">Aux. do Chefe de Socorro</label>
-                        <input type="text" id="auxChefe" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: XXX">
+                        <input type="text" id="auxChefe" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 3º SGT BM Fulano">
                     </div>
                     <div>
                         <label class="block text-sm font-medium">Cmt da Guarnição *</label>
-                        <input type="text" id="cmtGuarnicao" class="mt-1 block w-full rounded-md border p-2" required>
+                        <input type="text" id="cmtGuarnicao" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 2º SGT BM Ciclano" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium">Chefe da 1ª Linha</label>
-                        <input type="text" id="chefeLinha" class="mt-1 block w-full rounded-md border p-2">
+                        <input type="text" id="chefeLinha" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: CB BM Beltrano">
                     </div>
                     <div>
                         <label class="block text-sm font-medium">Aux. da 1ª Linha</label>
-                        <input type="text" id="auxLinha" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: XXX">
+                        <input type="text" id="auxLinha" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: SD BM João">
                     </div>
                 </div>
                 
                 <h3 class="text-lg font-semibold mt-4 mb-2">Motoristas</h3>
                 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div>
-                        <label class="block text-sm font-medium">Motorista do ABT-34 *</label>
-                        <input type="text" id="motABT" class="mt-1 block w-full rounded-md border p-2" required>
+                    <div id="blocoMotABT">
+                        <label class="block text-sm font-medium">Motorista do ABT-34</label>
+                        <input type="text" id="motABT" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: CB BM Motorista">
                     </div>
-                    <div>
+                    <div id="blocoMotAR">
                         <label class="block text-sm font-medium">Motorista do AR-75</label>
-                        <input type="text" id="motAR" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: XXX">
+                        <input type="text" id="motAR" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: SD BM Piloto">
                     </div>
                 </div>
             </section>
@@ -62,8 +92,8 @@
             <section class="border-b pb-4">
                 <h2 class="text-xl font-semibold mb-3">Serviço Interno & Permutas</h2>
                 <div class="mb-4">
-                    <label class="block text-sm font-medium">Permanência *</label>
-                    <input type="text" id="permanencia" class="mt-1 block w-full rounded-md border p-2" required>
+                    <label class="block text-sm font-medium">Operador de Comunicação *</label>
+                    <input type="text" id="operadorCom" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: SD BM Rádio" required>
                 </div>
                 
                 <div id="permutasContainer" class="space-y-2">
@@ -88,26 +118,28 @@
                     </div>
                 </div>
 
-                <h3 class="text-md font-semibold mt-4">ABT-34</h3>
-                <div class="grid grid-cols-2 gap-2 mb-2">
-                    <select id="sitABT" class="border p-2 rounded"><option>Operante</option><option>Inoperante</option></select>
-                    <input type="text" id="obsABT" placeholder="Observações..." class="border p-2 rounded w-full">
-                    <select id="combIniABT" class="border p-2 rounded"><option value="">Comb. Inicial</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
-                    <select id="combFinABT" class="border p-2 rounded"><option value="">Comb. Final</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
-                    <input type="number" id="kmIniABT" placeholder="KM Inicial" class="border p-2 rounded w-full">
-                    <input type="number" id="kmFinABT" placeholder="KM Final" class="border p-2 rounded w-full">
-                    <input type="number" id="abastABT" placeholder="Abastecimento (L)" class="border p-2 rounded w-full col-span-2">
+                <div id="secaoABT">
+                    <h3 class="text-md font-semibold mt-4 text-blue-800">Dados do ABT-34</h3>
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <input type="text" id="obsABT" placeholder="Observações da VTR..." class="border p-2 rounded w-full col-span-2">
+                        <select id="combIniABT" class="border p-2 rounded"><option value="">Comb. Inicial</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                        <select id="combFinABT" class="border p-2 rounded"><option value="">Comb. Final</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                        <input type="number" id="kmIniABT" placeholder="KM Inicial" class="border p-2 rounded w-full">
+                        <input type="number" id="kmFinABT" placeholder="KM Final" class="border p-2 rounded w-full">
+                        <input type="number" id="abastABT" placeholder="Abastecimento (L)" class="border p-2 rounded w-full col-span-2">
+                    </div>
                 </div>
 
-                <h3 class="text-md font-semibold mt-4">AR-75</h3>
-                <div class="grid grid-cols-2 gap-2">
-                    <select id="sitAR" class="border p-2 rounded"><option>Operante</option><option>Inoperante</option></select>
-                    <input type="text" id="obsAR" placeholder="Observações..." class="border p-2 rounded w-full">
-                    <select id="combIniAR" class="border p-2 rounded"><option value="">Comb. Inicial</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
-                    <select id="combFinAR" class="border p-2 rounded"><option value="">Comb. Final</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
-                    <input type="number" id="kmIniAR" placeholder="KM Inicial" class="border p-2 rounded w-full">
-                    <input type="number" id="kmFinAR" placeholder="KM Final" class="border p-2 rounded w-full">
-                    <input type="number" id="abastAR" placeholder="Abastecimento (L)" class="border p-2 rounded w-full col-span-2">
+                <div id="secaoAR">
+                    <h3 class="text-md font-semibold mt-4 text-blue-800">Dados do AR-75</h3>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" id="obsAR" placeholder="Observações da VTR..." class="border p-2 rounded w-full col-span-2">
+                        <select id="combIniAR" class="border p-2 rounded"><option value="">Comb. Inicial</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                        <select id="combFinAR" class="border p-2 rounded"><option value="">Comb. Final</option><option>0/8</option><option>1/8</option><option>2/8</option><option>3/8</option><option>4/8</option><option>5/8</option><option>6/8</option><option>7/8</option><option>8/8</option></select>
+                        <input type="number" id="kmIniAR" placeholder="KM Inicial" class="border p-2 rounded w-full">
+                        <input type="number" id="kmFinAR" placeholder="KM Final" class="border p-2 rounded w-full">
+                        <input type="number" id="abastAR" placeholder="Abastecimento (L)" class="border p-2 rounded w-full col-span-2">
+                    </div>
                 </div>
             </section>
 
@@ -133,11 +165,11 @@
                 <div class="grid grid-cols-1 gap-4">
                     <div>
                         <label class="block text-sm font-medium">Nome e Posto do Substituto *</label>
-                        <input type="text" id="substituto" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 2º TEN QOC MARIANA" required>
+                        <input type="text" id="substituto" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: 2º TEN QOC MARIANA" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium">Seu Nome e Posto *</label>
-                        <input type="text" id="nomeAtual" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: WADEILSON ABREU QUINZEIRO - ST QPBM" required>
+                        <input type="text" id="nomeAtual" list="listaMilitares" class="mt-1 block w-full rounded-md border p-2" placeholder="Ex: ST QPBM WADEILSON" required>
                     </div>
                 </div>
             </section>
@@ -145,7 +177,7 @@
         </form>
     </div>
 
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-4 flex justify-between shadow-lg max-w-3xl mx-auto">
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-4 flex justify-between shadow-lg max-w-3xl mx-auto z-50">
         <button onclick="limparDados()" class="bg-red-500 text-white px-4 py-2 rounded font-bold">Zerar Tudo</button>
         <button onclick="gerarECopiarSEI()" class="bg-green-600 text-white px-6 py-2 rounded font-bold">Copiar para o SEI</button>
     </div>
@@ -153,10 +185,28 @@
     <div id="sei-output" style="display: none;"></div>
 
     <script>
-        // GERENCIAMENTO DE ESTADO (Listas Dinâmicas)
+        // GERENCIAMENTO DE ESTADO
         let permutas = [];
         let quartos = [];
         let ocorrencias = [];
+
+        function atualizarVisibilidadeVTRs() {
+            const statusABT = document.getElementById('statusABT');
+            const statusAR = document.getElementById('statusAR');
+            
+            // Controle de cores do seletor
+            statusABT.className = `mt-1 block w-full rounded-md border p-2 bg-white font-bold ${statusABT.value === 'Operante' ? 'text-green-700' : 'text-red-700'}`;
+            statusAR.className = `mt-1 block w-full rounded-md border p-2 bg-white font-bold ${statusAR.value === 'Operante' ? 'text-green-700' : 'text-red-700'}`;
+
+            // Oculta/Mostra blocos de preenchimento
+            document.getElementById('blocoMotABT').style.display = statusABT.value === 'Operante' ? 'block' : 'none';
+            document.getElementById('secaoABT').style.display = statusABT.value === 'Operante' ? 'block' : 'none';
+            
+            document.getElementById('blocoMotAR').style.display = statusAR.value === 'Operante' ? 'block' : 'none';
+            document.getElementById('secaoAR').style.display = statusAR.value === 'Operante' ? 'block' : 'none';
+
+            salvarLocal();
+        }
 
         // FUNÇÕES PARA ADICIONAR CAMPOS DINÂMICOS
         function adicionarPermuta() {
@@ -169,12 +219,12 @@
         function renderizarPermutas() {
             const container = document.getElementById('permutasContainer');
             container.innerHTML = '';
-            permutas.forEach((p, index) => {
+            permutas.forEach((p) => {
                 container.innerHTML += `
                     <div class="flex gap-2 bg-gray-50 p-2 rounded items-end">
                         <input type="text" placeholder="Função" value="${p.funcao}" oninput="atualizarPermuta(${p.id}, 'funcao', this.value)" class="border p-1 rounded w-1/3 text-sm">
-                        <input type="text" placeholder="Sai" value="${p.sai}" oninput="atualizarPermuta(${p.id}, 'sai', this.value)" class="border p-1 rounded w-1/3 text-sm">
-                        <input type="text" placeholder="Entra" value="${p.entra}" oninput="atualizarPermuta(${p.id}, 'entra', this.value)" class="border p-1 rounded w-1/3 text-sm">
+                        <input type="text" placeholder="Sai" list="listaMilitares" value="${p.sai}" oninput="atualizarPermuta(${p.id}, 'sai', this.value)" class="border p-1 rounded w-1/3 text-sm">
+                        <input type="text" placeholder="Entra" list="listaMilitares" value="${p.entra}" oninput="atualizarPermuta(${p.id}, 'entra', this.value)" class="border p-1 rounded w-1/3 text-sm">
                         <button type="button" onclick="removerPermuta(${p.id})" class="text-red-500 font-bold px-2">X</button>
                     </div>
                 `;
@@ -203,11 +253,11 @@
         function renderizarQuartos() {
             const container = document.getElementById('quartoHoraContainer');
             container.innerHTML = '';
-            quartos.forEach((q, index) => {
+            quartos.forEach((q) => {
                 container.innerHTML += `
                     <div class="flex gap-2 bg-gray-50 p-2 rounded items-end">
                         <input type="text" placeholder="Horário (Ex: 00h00 - 01h30)" value="${q.horario}" oninput="atualizarQuarto(${q.id}, 'horario', this.value)" class="border p-1 rounded w-1/2 text-sm">
-                        <input type="text" placeholder="Militar" value="${q.militar}" oninput="atualizarQuarto(${q.id}, 'militar', this.value)" class="border p-1 rounded w-1/2 text-sm">
+                        <input type="text" placeholder="Militar" list="listaMilitares" value="${q.militar}" oninput="atualizarQuarto(${q.id}, 'militar', this.value)" class="border p-1 rounded w-1/2 text-sm">
                         <button type="button" onclick="removerQuarto(${q.id})" class="text-red-500 font-bold px-2">X</button>
                     </div>
                 `;
@@ -261,19 +311,19 @@
             salvarLocal();
         }
 
-        // SALVAMENTO AUTOMÁTICO (LOCALSTORAGE)
+        // SALVAMENTO AUTOMÁTICO
         const inputsIds = [
-            'dataServico', 'chefeSocorro', 'auxChefe', 'cmtGuarnicao', 'chefeLinha', 'auxLinha', 
-            'motABT', 'motAR', 'permanencia', 'sitPistola', 'qtdMunicao', 
-            'sitABT', 'obsABT', 'combIniABT', 'combFinABT', 'kmIniABT', 'kmFinABT', 'abastABT',
-            'sitAR', 'obsAR', 'combIniAR', 'combFinAR', 'kmIniAR', 'kmFinAR', 'abastAR',
+            'statusABT', 'statusAR', 'dataServico', 'chefeSocorro', 'auxChefe', 'cmtGuarnicao', 'chefeLinha', 'auxLinha', 
+            'motABT', 'motAR', 'operadorCom', 'sitPistola', 'qtdMunicao', 
+            'obsABT', 'combIniABT', 'combFinABT', 'kmIniABT', 'kmFinABT', 'abastABT',
+            'obsAR', 'combIniAR', 'combFinAR', 'kmIniAR', 'kmFinAR', 'abastAR',
             'alteracoes', 'substituto', 'nomeAtual'
         ];
 
         function salvarLocal() {
             const dados = {};
             inputsIds.forEach(id => {
-                dados[id] = document.getElementById(id).value;
+                dados[id] = document.getElementById(id)?.value || '';
             });
             dados.permutas = permutas;
             dados.quartos = quartos;
@@ -286,7 +336,9 @@
             if (dadosSalvos) {
                 const dados = JSON.parse(dadosSalvos);
                 inputsIds.forEach(id => {
-                    if (dados[id]) document.getElementById(id).value = dados[id];
+                    if (dados[id] && document.getElementById(id)) {
+                        document.getElementById(id).value = dados[id];
+                    }
                 });
                 if (dados.permutas) permutas = dados.permutas;
                 if (dados.quartos) quartos = dados.quartos;
@@ -295,6 +347,7 @@
                 renderizarPermutas();
                 renderizarQuartos();
                 renderizarOcorrencias();
+                atualizarVisibilidadeVTRs(); // Garante que a tela carregue com as seções corretas abertas/fechadas
             }
         }
 
@@ -305,18 +358,16 @@
             }
         }
 
-        // ADICIONA LISTENERS PARA SALVAR AO DIGITAR
         inputsIds.forEach(id => {
-            document.getElementById(id).addEventListener('input', salvarLocal);
+            const el = document.getElementById(id);
+            if(el) el.addEventListener('input', salvarLocal);
         });
 
-        // FORMATAÇÃO DE DATAS
         function obterTextosData(dataStr) {
-            if (!dataStr) return { textoDia: '', textoSemana: '' };
+            if (!dataStr) return { textoDia: '___/___/___', textoSemana: '___ para ___' };
             const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
             const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
             
-            // Adiciona timezone offset para evitar fuso bugando o dia
             const dataAtual = new Date(dataStr + 'T12:00:00');
             const dataSeguinte = new Date(dataAtual);
             dataSeguinte.setDate(dataSeguinte.getDate() + 1);
@@ -330,6 +381,8 @@
         // GERAR HTML DO SEI E COPIAR
         function gerarECopiarSEI() {
             const datas = obterTextosData(document.getElementById('dataServico').value);
+            const isABTOperante = document.getElementById('statusABT').value === 'Operante';
+            const isAROperante = document.getElementById('statusAR').value === 'Operante';
             
             const tableStyle = 'border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 11pt; margin-bottom: 15px;';
             const thStyle = 'border: 1px solid black; padding: 5px; background-color: #f2f2f2; font-weight: bold; text-align: left;';
@@ -353,22 +406,22 @@
 
                     <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">II - GUARNIÇÃO DE SERVIÇO DAS VTR'S</p>
                     <table style="${tableStyle}">
-                        <tr><td style="${tdStyle} font-weight: bold; width: 30%;">Chefe de Socorro</td><td style="${tdStyle}">${document.getElementById('chefeSocorro').value}</td></tr>
+                        <tr><td style="${tdStyle} font-weight: bold; width: 30%;">Chefe de Socorro</td><td style="${tdStyle}">${document.getElementById('chefeSocorro').value || 'XXX'}</td></tr>
                         <tr><td style="${tdStyle} font-weight: bold;">Aux. do chefe de Socorro</td><td style="${tdStyle}">${document.getElementById('auxChefe').value || 'XXX'}</td></tr>
-                        <tr><td style="${tdStyle} font-weight: bold;">Cmt da Guarnição</td><td style="${tdStyle}">${document.getElementById('cmtGuarnicao').value}</td></tr>
+                        <tr><td style="${tdStyle} font-weight: bold;">Cmt da Guarnição</td><td style="${tdStyle}">${document.getElementById('cmtGuarnicao').value || 'XXX'}</td></tr>
                         <tr><td style="${tdStyle} font-weight: bold;">Chefe da 1ª Linha</td><td style="${tdStyle}">${document.getElementById('chefeLinha').value || 'XXX'}</td></tr>
                         <tr><td style="${tdStyle} font-weight: bold;">Aux. da 1ª Linha</td><td style="${tdStyle}">${document.getElementById('auxLinha').value || 'XXX'}</td></tr>
                     </table>
 
                     <table style="${tableStyle}">
                         <tr><th colspan="2" style="${thStyle}">MOTORISTAS</th></tr>
-                        <tr><td style="${tdStyle} font-weight: bold; width: 30%;">Motorista do ABT-34</td><td style="${tdStyle}">${document.getElementById('motABT').value}</td></tr>
-                        <tr><td style="${tdStyle} font-weight: bold;">Motorista do AR-75</td><td style="${tdStyle}">${document.getElementById('motAR').value || 'XXX'}</td></tr>
+                        <tr><td style="${tdStyle} font-weight: bold; width: 30%;">Motorista do ABT-34</td><td style="${tdStyle}">${isABTOperante ? (document.getElementById('motABT').value || 'XXX') : 'XXX'}</td></tr>
+                        <tr><td style="${tdStyle} font-weight: bold;">Motorista do AR-75</td><td style="${tdStyle}">${isAROperante ? (document.getElementById('motAR').value || 'XXX') : 'XXX'}</td></tr>
                     </table>
 
                     <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">V - SERVIÇO INTERNO</p>
                     <table style="${tableStyle}">
-                        <tr><td style="${tdStyle} font-weight: bold; width: 30%;">Permanência</td><td style="${tdStyle}">${document.getElementById('permanencia').value}</td></tr>
+                        <tr><td style="${tdStyle} font-weight: bold; width: 30%;">Operador de Comunicação</td><td style="${tdStyle}">${document.getElementById('operadorCom').value || 'XXX'}</td></tr>
                     </table>
 
                     <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">VI - PERMUTA DE SERVIÇO</p>
@@ -378,7 +431,7 @@
                             <th style="${thStyle}">SAI (SUBSTITUÍDO)</th>
                             <th style="${thStyle}">ENTRA (SUBSTITUTO)</th>
                         </tr>
-                        ${permutas.length > 0 ? permutas.map(p => `<tr><td style="${tdStyle}">${p.funcao}</td><td style="${tdStyle}">${p.sai}</td><td style="${tdStyle}">${p.entra}</td></tr>`).join('') : `<tr><td colspan="3" style="${tdStyle} text-align: center;">Nenhuma permuta</td></tr>`}
+                        ${permutas.length > 0 ? permutas.map(p => `<tr><td style="${tdStyle}">${p.funcao || 'XXX'}</td><td style="${tdStyle}">${p.sai || 'XXX'}</td><td style="${tdStyle}">${p.entra || 'XXX'}</td></tr>`).join('') : `<tr><td colspan="3" style="${tdStyle} text-align: center;">Não Houve</td></tr>`}
                     </table>
 
                     <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">VII - ARMAMENTO</p>
@@ -391,7 +444,7 @@
                         <tr>
                             <td style="${tdStyle}">Pistola .40 SUB 23395 (Permanência)</td>
                             <td style="${tdStyle}">${document.getElementById('sitPistola').value}</td>
-                            <td style="${tdStyle}">${document.getElementById('qtdMunicao').value}</td>
+                            <td style="${tdStyle}">${document.getElementById('qtdMunicao').value || 'XXX'}</td>
                         </tr>
                     </table>
 
@@ -405,15 +458,15 @@
                         </tr>
                         <tr>
                             <td style="${tdStyle}">ABT-34</td>
-                            <td style="${tdStyle}">${document.getElementById('sitABT').value}</td>
+                            <td style="${tdStyle}">${document.getElementById('statusABT').value}</td>
                             <td style="${tdStyle}">13º BBM/CBMMA</td>
-                            <td style="${tdStyle}">${document.getElementById('obsABT').value || '-'}</td>
+                            <td style="${tdStyle}">${isABTOperante ? (document.getElementById('obsABT').value || '-') : 'XXX'}</td>
                         </tr>
                         <tr>
                             <td style="${tdStyle}">AR-75</td>
-                            <td style="${tdStyle}">${document.getElementById('sitAR').value}</td>
-                            <td style="${tdStyle}">13º BBM/CBMMA</td>
-                            <td style="${tdStyle}">${document.getElementById('obsAR').value || '-'}</td>
+                            <td style="${tdStyle}">${document.getElementById('statusAR').value}</td>
+                            <td style="${tdStyle}">${isAROperante ? '13º BBM/CBMMA' : 'Emprestada'}</td>
+                            <td style="${tdStyle}">${isAROperante ? (document.getElementById('obsAR').value || '-') : 'XXX'}</td>
                         </tr>
                     </table>
 
@@ -429,19 +482,19 @@
                         </tr>
                         <tr>
                             <td style="${tdStyle}">ABT-34</td>
-                            <td style="${tdStyle}">${document.getElementById('combIniABT').value || '-'}</td>
-                            <td style="${tdStyle}">${document.getElementById('combFinABT').value || '-'}</td>
-                            <td style="${tdStyle}">${document.getElementById('kmIniABT').value || '-'}</td>
-                            <td style="${tdStyle}">${document.getElementById('kmFinABT').value || '-'}</td>
-                            <td style="${tdStyle}">${document.getElementById('abastABT').value || '-'}</td>
+                            <td style="${tdStyle}">${isABTOperante ? (document.getElementById('combIniABT').value || 'XXX') : 'XXX'}</td>
+                            <td style="${tdStyle}">${isABTOperante ? (document.getElementById('combFinABT').value || 'XXX') : 'XXX'}</td>
+                            <td style="${tdStyle}">${isABTOperante ? (document.getElementById('kmIniABT').value || 'XXX') : 'XXX'}</td>
+                            <td style="${tdStyle}">${isABTOperante ? (document.getElementById('kmFinABT').value || 'XXX') : 'XXX'}</td>
+                            <td style="${tdStyle}">${isABTOperante ? (document.getElementById('abastABT').value || 'XXX') : 'XXX'}</td>
                         </tr>
                         <tr>
                             <td style="${tdStyle}">AR-75</td>
-                            <td style="${tdStyle}">${document.getElementById('combIniAR').value || '-'}</td>
-                            <td style="${tdStyle}">${document.getElementById('combFinAR').value || '-'}</td>
-                            <td style="${tdStyle}">${document.getElementById('kmIniAR').value || '-'}</td>
-                            <td style="${tdStyle}">${document.getElementById('kmFinAR').value || '-'}</td>
-                            <td style="${tdStyle}">${document.getElementById('abastAR').value || '-'}</td>
+                            <td style="${tdStyle}">${isAROperante ? (document.getElementById('combIniAR').value || 'XXX') : 'XXX'}</td>
+                            <td style="${tdStyle}">${isAROperante ? (document.getElementById('combFinAR').value || 'XXX') : 'XXX'}</td>
+                            <td style="${tdStyle}">${isAROperante ? (document.getElementById('kmIniAR').value || 'XXX') : 'XXX'}</td>
+                            <td style="${tdStyle}">${isAROperante ? (document.getElementById('kmFinAR').value || 'XXX') : 'XXX'}</td>
+                            <td style="${tdStyle}">${isAROperante ? (document.getElementById('abastAR').value || 'XXX') : 'XXX'}</td>
                         </tr>
                     </table>
 
@@ -451,7 +504,7 @@
                             <th style="${thStyle}">HORÁRIO</th>
                             <th style="${thStyle}">MILITAR</th>
                         </tr>
-                        ${quartos.length > 0 ? quartos.map(q => `<tr><td style="${tdStyle}">${q.horario}</td><td style="${tdStyle}">${q.militar}</td></tr>`).join('') : `<tr><td colspan="2" style="${tdStyle} text-align: center;">Nenhum turno registrado</td></tr>`}
+                        ${quartos.length > 0 ? quartos.map(q => `<tr><td style="${tdStyle}">${q.horario || 'XXX'}</td><td style="${tdStyle}">${q.militar || 'XXX'}</td></tr>`).join('') : `<tr><td colspan="2" style="${tdStyle} text-align: center;">Não Houve</td></tr>`}
                     </table>
 
                     <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">XI - OCORRÊNCIAS</p>
@@ -462,17 +515,17 @@
                             <th style="${thStyle}">Nº da Ocorrência no SINESP</th>
                             <th style="${thStyle}">Descrição da ocorrência</th>
                         </tr>
-                        ${ocorrencias.length > 0 ? ocorrencias.map(o => `<tr><td style="${tdStyle}">${o.natureza}</td><td style="${tdStyle}">${o.endereco}</td><td style="${tdStyle}">${o.sinesp}</td><td style="${tdStyle}">${o.descricao.replace(/\n/g, '<br>')}</td></tr>`).join('') : `<tr><td colspan="4" style="${tdStyle} text-align: center;">Não Houve</td></tr>`}
+                        ${ocorrencias.length > 0 ? ocorrencias.map(o => `<tr><td style="${tdStyle}">${o.natureza || 'XXX'}</td><td style="${tdStyle}">${o.endereco || 'XXX'}</td><td style="${tdStyle}">${o.sinesp || 'XXX'}</td><td style="${tdStyle}">${(o.descricao || 'XXX').replace(/\n/g, '<br>')}</td></tr>`).join('') : `<tr><td colspan="4" style="${tdStyle} text-align: center;">Não Houve</td></tr>`}
                     </table>
 
                     <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">XII - ALTERAÇÕES</p>
                     <p style="border: 1px solid black; padding: 10px;">${document.getElementById('alteracoes').value.replace(/\n/g, '<br>') || 'Não Houve'}</p>
 
                     <p style="font-weight: bold; background-color: #d9d9d9; padding: 3px;">XIII - PASSAGEM DE SERVIÇO</p>
-                    <p>Fiz ao meu substituto legal, o senhor, <strong>${document.getElementById('substituto').value}</strong>, a quem transmiti todas as ordens em vigor, além do material carga do Chefe de Socorro.</p>
+                    <p>Fiz ao meu substituto legal, o senhor(a), <strong>${document.getElementById('substituto').value || 'XXX'}</strong>, a quem transmiti todas as ordens em vigor, além do material carga do Chefe de Socorro.</p>
                     
                     <p style="text-align: center; margin-top: 30px;">Paço do Lumiar/MA, data da assinatura eletrônica.</p>
-                    <p style="text-align: center; font-weight: bold; margin-top: 20px;">${document.getElementById('nomeAtual').value}</p>
+                    <p style="text-align: center; font-weight: bold; margin-top: 20px;">${document.getElementById('nomeAtual').value || 'XXX'}</p>
                     <p style="text-align: center;">Chefe de Socorro do 13º BBM/CBMMA</p>
 
                 </div>
@@ -492,7 +545,6 @@
             }
         }
 
-        // CARREGA DADOS AO ABRIR
         window.onload = carregarLocal;
     </script>
 </body>
